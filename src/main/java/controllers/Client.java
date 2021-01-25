@@ -37,7 +37,7 @@ public class Client{
         try {
             Player player = new Player("aya", "aya@gmail.com", 0, 1);
 
-            s = new Socket("127.0.0.1", 5005);
+            s = new Socket("127.0.0.1", 5080);
             System.out.println("connected");
             DataInputStream dis = new DataInputStream(s.getInputStream());
             PrintStream ps = new PrintStream(s.getOutputStream());

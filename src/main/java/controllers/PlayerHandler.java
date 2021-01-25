@@ -1,20 +1,20 @@
 package controllers;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import dbconnection.LoginDB;
 import dbconnection.Player;
+import dbconnection.SignUpDB;
+import javafx.application.Platform;
 
-import java.io.DataInputStream;
 import java.io.IOException;
-import java.io.PrintStream;
-import java.net.Socket;
+import java.util.Date;
+import java.util.Map;
 
 
 public class PlayerHandler {
-    private DataInputStream dis;
-    private PrintStream ps;
     private Player player;
+    private ManagePlayerConnection playerConn;
 
-    public Player stringToPlayer(String msg)
+    /*public Player stringToPlayer(String msg)
     {
         try {
             ObjectMapper mapper = new ObjectMapper();
@@ -24,40 +24,78 @@ public class PlayerHandler {
             return null;
         }
 
-    }
-    public PlayerHandler(Socket s){
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        while(true){
-                            dis = new DataInputStream(s.getInputStream());
-                            ps = new PrintStream(s.getOutputStream());
+    }*/
+public PlayerHandler(ManagePlayerConnection playerConn) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException
+{
+    this.playerConn = playerConn;
 
-                            //Read MSG
-                            String msg = dis.readLine();
-                            player  = stringToPlayer(msg);
-                            System.out.println(msg);
-                            System.out.println(player.getName());
+    new Thread(new Runnable() {
+        @Override
+        public void run() {
+            try {
+                while(true){
+                    //Read MSG
 
-                            //System.out.println(msg);
+                    Map<String, Player> elements = playerConn.deserialize();
+                    player = (Player) elements.values().toArray()[0];
 
-                            //send Object
-                            player = new Player("mohab", "mohab@gmail.com", 0, 5);
-                            String json = player.jsonToString();
-                            ps.println(json);
-
-                            //ether login or SignUP
-                            //System.out.println(player.getEmail() + " " + player.getName()+" "+player.getPassword());
-                            //Platform.runLater(() -> taLog.appendText(new Date() + " Player : " +player.getName()+" Login" + '\n'));
-
-                            //Platform.runLater(() -> taLog.appendText(new Date() + " Player : " +player.getName()+" SignedUp" + '\n'));
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                    System.out.println("before if");
+                    if(elements.keySet().toArray()[0].equals("login")){
+                        signInAction(true);
+                    }
+                    else if(elements.keySet().toArray()[0].equals("signup")){
+                        signUpAction();
                     }
 
-                }
-            }).start();
+                    else if(elements.keySet().toArray()[0].equals("forgetPassword")){
+                        signInAction(false);
+                    }
+
+            }
+        } catch (IOException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+
     }
+    }).start();
+}
+
+    public void signUpAction() throws ClassNotFoundException, InstantiationException, IllegalAccessException
+    {
+        SignUpDB db = new SignUpDB();
+        //db.Connect();
+        if (!db.isExist(player)) {
+            //insert successfull
+            System.out.println("inside isExist");
+            boolean bol = db.newPlayer(player);
+
+            System.out.println("after new player " + bol);
+
+            if(bol)
+                playerConn.serialaize("true",player);
+
+            else
+                playerConn.serialaize("false",player);
+
+        } else {
+            playerConn.serialaize("false",player);
+        }
+
+    }
+    public void signInAction(boolean loginOrForget) throws ClassNotFoundException, InstantiationException, IllegalAccessException,IOException
+    {
+        LoginDB db = new LoginDB();
+        //db.Connect();
+        if(db.isExist(player,loginOrForget))
+        {
+            player = db.getPlayerData();
+            playerConn.serialaize("true",player);
+
+            System.out.println("Found");
+        } else {
+            playerConn.serialaize("false",player);
+
+        }
+    }
+
 }

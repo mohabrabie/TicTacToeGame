@@ -71,7 +71,7 @@ public class ServerHomeController implements Initializable {
     private DataInputStream dis;
     private PrintStream ps;
     private Player p;
-    
+    private ManagePlayerConnection playeConn;
     /**
      * Initializes the controller class.
      */
@@ -118,19 +118,21 @@ public class ServerHomeController implements Initializable {
                 try 
                 {
                     // Create a server socket
-                    serverSocket = new ServerSocket(5005);
+                    serverSocket = new ServerSocket(5080);
 
-                    Platform.runLater(() -> taLog.appendText(new Date() + ": Server started at socket 5005\n")); 
+                    Platform.runLater(() -> taLog.appendText(new Date() + ": Server started at socket 5080\n"));
                     
                     // Ready to create a session for every two players
                     while (ServerOn)
                     {
-                           Socket s = serverSocket.accept();
-                           new PlayerHandler(s);
+                             //Socket s = serverSocket.accept();
+                            playeConn = new ManagePlayerConnection();
+                            playeConn.startConnection(serverSocket);
+                            new PlayerHandler(playeConn);
                     }
                     serverSocket.close();
                 }
-                catch(IOException ex) 
+                catch(IOException | ClassNotFoundException | InstantiationException | IllegalAccessException ex)
                 {
                     ex.printStackTrace();
                 }
@@ -149,55 +151,5 @@ public class ServerHomeController implements Initializable {
         main.stop();
         
     }
-    /**  The following methods must be called with flag that represents the scene **/
-      public void signUpAction() throws ClassNotFoundException
-    {
-        try {
-            // use db to store it
-            SignUpDB db = new SignUpDB();
-            db.Connect();
-            if (!db.isExist(p)) {
-                //insert successfull
-                System.out.println("inside isExist");
-                boolean bol = db.newPlayer(p);
-                //p = db.getPlayerData();
 
-                System.out.println("after new player " + bol);
-                
-                if(bol)
-                    ps.println("true");
-                else
-                    ps.println("false");
-            } else {
-                // player is already exist
-                ps.println("false");
-            }
-        } catch (InstantiationException ex) {
-            Logger.getLogger(ServerHomeController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(ServerHomeController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    public void signInAction() throws ClassNotFoundException, InstantiationException, IllegalAccessException 
-    {
-            ObjectMapper mapper = new ObjectMapper();
-            LoginDB db = new LoginDB();
-            db.Connect();
-            //check if the player exists
-            if(db.isExist(p,true))
-            {
-                     p = db.getPlayerData();
-                     try {
-                                    //Convert from Player obj to string
-                                    String json = mapper.writeValueAsString(p);
-                                    ps.println(json);
-                        } catch (JsonProcessingException e) {
-                            e.printStackTrace();
-                        }
-                   System.out.println("Found");
-             } else {
-                // player doesn't exist
-                ps.println("false");
-            }
-    }
 }
