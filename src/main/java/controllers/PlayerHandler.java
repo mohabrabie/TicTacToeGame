@@ -49,6 +49,8 @@ public PlayerHandler(ManagePlayerConnection playerConn) throws ClassNotFoundExce
 
                     else if(elements.keySet().toArray()[0].equals("forgetPassword")){
                         signInAction(false);
+                    }else if(elements.keySet().toArray()[0].equals("updateProfile")){
+                        updateProfileAction();
                     }
 
             }
@@ -92,6 +94,24 @@ public PlayerHandler(ManagePlayerConnection playerConn) throws ClassNotFoundExce
             playerConn.serialaize("true",player);
 
             System.out.println("Found");
+        } else {
+            playerConn.serialaize("false",player);
+
+        }
+    }
+    public void updateProfileAction() throws ClassNotFoundException, InstantiationException, IllegalAccessException,IOException
+    {
+        SignUpDB db = new SignUpDB();
+        //db.Connect();
+        if(db.isExist(player))
+        {
+            boolean bol = db.updatePlayer(player);
+            if(bol)
+                playerConn.serialaize("true",player);
+
+            else
+                playerConn.serialaize("false",player);
+
         } else {
             playerConn.serialaize("false",player);
 
