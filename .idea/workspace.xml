@@ -2,77 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d3b921e9-ec7e-407b-b945-fbeed6535798" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/controllers/ManagePlayerConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_annotations_2_9_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_core_2_9_8.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_databind_2_9_8.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_jfoenix_jfoenix_8_0_10.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__javax_activation_activation_1_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__javax_mail_javax_mail_api_1_4_7.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_base_12_0_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_base_win_12_0_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_controls_12_0_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_controls_win_12_0_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_fxml_12_0_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_fxml_win_12_0_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_graphics_12_0_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_graphics_win_12_0_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_xerial_sqlite_jdbc_3_27_2_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/PlayerHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/PlayerHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/ServerHomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/ServerHomeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dbconnection/LoginDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dbconnection/LoginDB.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dbconnection/SignUpDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dbconnection/SignUpDB.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dbconnection/TicTacToeDB.db" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dbconnection/TicTacToeDB.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/ServerHome.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/ServerHome.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/controllers/Client.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controllers/Client.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/controllers/PlayerHandler$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controllers/PlayerHandler$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/controllers/PlayerHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controllers/PlayerHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/controllers/ServerHomeController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controllers/ServerHomeController$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/controllers/ServerHomeController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controllers/ServerHomeController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/dbconnection/LoginDB.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/dbconnection/LoginDB.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/dbconnection/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/dbconnection/Player.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/dbconnection/SignUpDB.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/dbconnection/SignUpDB.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/fxml/ServerHome.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fxml/ServerHome.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/icons/1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/icons/10.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/icons/11.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/icons/12.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/icons/13.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/icons/14.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/icons/15.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/icons/16.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/icons/17.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/icons/18.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/icons/19.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/icons/2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/icons/20.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/icons/21.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/icons/22.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/icons/3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/icons/4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/icons/5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/icons/6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/icons/7.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/icons/8.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/icons/9.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/icons/bg.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/icons/bot.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/icons/email_48px.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/icons/icons8_contacts_64px.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/icons/icons8_forward_filled_100px_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/icons/icons8_gender_neutral_user_128px.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/icons/icons8_lock_52px.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/icons/off.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/icons/on.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/Client.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controllers/Client.class" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -92,11 +24,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/controllers/ManagePlayerConnection.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="133">
-              <caret line="52" selection-start-line="52" selection-end-line="52" />
+            <state relative-caret-position="258">
+              <caret line="53" column="31" selection-start-line="53" selection-start-column="31" selection-end-line="53" selection-end-column="31" />
             </state>
           </provider>
         </entry>
@@ -145,11 +77,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/controllers/PlayerHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="133">
-              <caret line="38" selection-start-line="38" selection-end-line="38" />
+            <state relative-caret-position="94">
+              <caret line="45" column="43" selection-start-line="45" selection-start-column="43" selection-end-line="45" selection-end-column="43" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -177,8 +109,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="482" />
-    <option name="y" value="115" />
+    <option name="x" value="96" />
+    <option name="y" value="498" />
     <option name="width" value="1615" />
     <option name="height" value="880" />
   </component>
@@ -276,7 +208,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1611602006373" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1611604442092" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="preferences.JavaFX" />
@@ -328,12 +260,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1611584925486</updated>
-      <workItem from="1611584929330" duration="11809000" />
+      <workItem from="1611584929330" duration="14201000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="11809000" />
+    <option name="totallyTimeSpent" value="14201000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
@@ -354,7 +286,7 @@
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3654391" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.40934843" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39943343" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -432,13 +364,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/controllers/ManagePlayerConnection.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="52" selection-start-line="52" selection-end-line="52" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/dbconnection/SignUpDB.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="250">
@@ -452,11 +377,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/controllers/PlayerHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="38" selection-start-line="38" selection-end-line="38" />
+        <state relative-caret-position="94">
+          <caret line="45" column="43" selection-start-line="45" selection-start-column="43" selection-end-line="45" selection-end-column="43" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/controllers/ManagePlayerConnection.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="258">
+          <caret line="53" column="31" selection-start-line="53" selection-start-column="31" selection-end-line="53" selection-end-column="31" />
         </state>
       </provider>
     </entry>
