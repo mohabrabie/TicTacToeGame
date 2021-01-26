@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,6 +33,21 @@ public class ManagePlayerConnection {
     {
         Map<String, Player> elements = new HashMap();
         elements.put(isExist, p);
+        //SortedMap<String, Object> revelements = new TreeMap();
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        try {
+            String json = objectMapper.writeValueAsString(elements);
+            System.out.println(json);
+            ps.println(json);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+    }
+    public void serialaizeList(String isExist, ArrayList<Player> list)
+    {
+        Map<String, ArrayList<Player>> elements = new HashMap();
+        elements.put(isExist, list);
         //SortedMap<String, Object> revelements = new TreeMap();
         ObjectMapper objectMapper = new ObjectMapper();
 

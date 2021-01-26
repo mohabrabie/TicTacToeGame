@@ -1,163 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="d3b921e9-ec7e-407b-b945-fbeed6535798" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/controllers/ManagePlayerConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/icons/1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/icons/10.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/icons/11.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/icons/12.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/icons/13.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/icons/14.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/icons/15.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/icons/16.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/icons/17.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/icons/18.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/icons/19.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/icons/2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/icons/20.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/icons/21.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/icons/22.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/icons/3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/icons/4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/icons/5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/icons/6.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/icons/7.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/icons/8.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/icons/9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/icons/bg.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/icons/bot.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/icons/email_48px.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/icons/icons8_contacts_64px.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/icons/icons8_forward_filled_100px_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/icons/icons8_gender_neutral_user_128px.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/icons/icons8_lock_52px.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/icons/off.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/icons/on.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_annotations_2_9_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_core_2_9_8.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_databind_2_9_8.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_jfoenix_jfoenix_8_0_10.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__javax_activation_activation_1_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__javax_mail_javax_mail_api_1_4_7.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_base_12_0_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_base_win_12_0_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_controls_12_0_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_controls_win_12_0_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_fxml_12_0_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_fxml_win_12_0_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_graphics_12_0_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_graphics_win_12_0_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_xerial_sqlite_jdbc_3_27_2_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/ManagePlayerConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/ManagePlayerConnection.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/controllers/PlayerHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/PlayerHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/controllers/ServerHomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/ServerHomeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dbconnection/LoginDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dbconnection/LoginDB.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dbconnection/SignUpDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dbconnection/SignUpDB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dbconnection/DBMS.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dbconnection/DBMS.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dbconnection/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dbconnection/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dbconnection/SQLNotes.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dbconnection/SQLNotes.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dbconnection/TicTacToeDB.db" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dbconnection/TicTacToeDB.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/ServerHome.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/ServerHome.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/controllers/Client.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controllers/Client.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controllers/ManagePlayerConnection$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controllers/ManagePlayerConnection$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controllers/ManagePlayerConnection.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controllers/ManagePlayerConnection.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/controllers/PlayerHandler$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controllers/PlayerHandler$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/controllers/PlayerHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controllers/PlayerHandler.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/controllers/ServerHomeController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controllers/ServerHomeController$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/controllers/ServerHomeController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controllers/ServerHomeController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/dbconnection/LoginDB.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/dbconnection/LoginDB.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/dbconnection/DBMS.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/dbconnection/DBMS.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/dbconnection/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/dbconnection/Player.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/dbconnection/SignUpDB.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/dbconnection/SignUpDB.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/fxml/ServerHome.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fxml/ServerHome.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/icons/1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/icons/10.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/icons/11.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/icons/12.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/icons/13.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/icons/14.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/icons/15.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/icons/16.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/icons/17.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/icons/18.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/icons/19.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/icons/2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/icons/20.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/icons/21.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/icons/22.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/icons/3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/icons/4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/icons/5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/icons/6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/icons/7.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/icons/8.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/icons/9.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/icons/bg.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/icons/bot.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/icons/email_48px.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/icons/icons8_contacts_64px.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/icons/icons8_forward_filled_100px_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/icons/icons8_gender_neutral_user_128px.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/icons/icons8_lock_52px.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/icons/off.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/icons/on.png" beforeDir="false" />
     </list>
-    <ignored path="$PROJECT_DIR$/target/" />
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="FileEditorManager">
-    <leaf>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/controllers/ServerHomeController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="212">
-              <caret line="122" column="106" selection-start-line="122" selection-start-column="106" selection-end-line="122" selection-end-column="106" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/controllers/ManagePlayerConnection.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="133">
-              <caret line="52" selection-start-line="52" selection-end-line="52" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/dbconnection/DBMS.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="27">
-              <caret line="25" column="3" lean-forward="true" selection-start-line="25" selection-start-column="3" selection-end-line="25" selection-end-column="3" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/dbconnection/LoginDB.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="874">
-              <caret line="55" column="29" lean-forward="true" selection-start-line="55" selection-start-column="29" selection-end-line="55" selection-end-column="29" />
-              <folding>
-                <element signature="e#2508#2509#0" expanded="true" />
-                <element signature="e#2552#2553#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/dbconnection/SignUpDB.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="250">
-              <caret line="73" column="10" selection-start-line="73" selection-start-column="10" selection-end-line="73" selection-end-column="10" />
-              <folding>
-                <element signature="e#3213#3214#0" expanded="true" />
-                <element signature="e#3257#3258#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/dbconnection/Player.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="27">
-              <caret line="30" column="90" selection-start-line="30" selection-start-column="90" selection-end-line="30" selection-end-column="90" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/controllers/PlayerHandler.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="133">
-              <caret line="38" selection-start-line="38" selection-end-line="38" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -182,6 +83,7 @@
     <option name="width" value="1615" />
     <option name="height" value="880" />
   </component>
+  <component name="ProjectId" id="1nZi0zkSR1zmgKMBnZE1Aeiae7p" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -273,30 +175,35 @@
       </pane>
     </panes>
   </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1611602006373" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.JavaFX" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Mohab\Desktop\New folder (3)\TicTacToeServer\src\main\java" />
       <recent name="E:\The Champion\TicTacToeGame\TicTacToeServer\target" />
     </key>
-  </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Mohab\Desktop\New folder (3)\TicTacToeServer\target\classes" />
+      <recent name="C:\Users\Mohab\Desktop\New folder (3)\TicTacToeServer\target" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="MainApp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -312,12 +219,24 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Application.MainApp" />
       </list>
     </recent_temporary>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -329,6 +248,12 @@
       <option name="presentableId" value="Default" />
       <updated>1611584925486</updated>
       <workItem from="1611584929330" duration="11809000" />
+      <workItem from="1611603797287" duration="842000" />
+      <workItem from="1611606203412" duration="11725000" />
+      <workItem from="1611645973274" duration="597000" />
+      <workItem from="1611648238289" duration="13683000" />
+      <workItem from="1611692061243" duration="482000" />
+      <workItem from="1611692761211" duration="988000" />
     </task>
     <servers />
   </component>
@@ -371,14 +296,26 @@
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/main/resources/fxml/Scene.fxml">
       <provider editor-type-id="JavaFX-Scene-Builder" />
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="jar://C:/Program Files (x86)/Java/jdk1.8.0_60/javafx-src.zip!/javafx/fxml/Initializable.java">
+    <entry file="jar://$PROJECT_DIR$/../../../../../Program Files (x86)/Java/jdk1.8.0_60/javafx-src.zip!/javafx/fxml/Initializable.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="81">
           <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />

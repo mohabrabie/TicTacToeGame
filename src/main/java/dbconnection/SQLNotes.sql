@@ -31,12 +31,12 @@ CREATE TABLE game (
 
 *add some records*
 INSERT INTO player (name,email,password,main_score,status,avatar)
-values("mohab","mohab@gmail.com",123,120,1,"../icons/icon3.png");
+values("mohab","mohab@gmail.com",123,120,1,"3.png");
 
 INSERT INTO player (name,email,password,main_score,status,avatar)
-values("aya","aya@gmail.com",123,150,1,"../icons/icon5.png");
+values("aya","aya@gmail.com",123,150,1,"5.png");
 
 INSERT INTO player (name,email,password,main_score,status,avatar)
-values("eslam","eslam@gmail.com",123,85,1,"../icons/icon7.png");
+values("eslam","eslam@gmail.com",123,85,1,"7.png");
 
 */

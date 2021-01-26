@@ -1,11 +1,13 @@
 package controllers;
 
+import dbconnection.DBMS;
 import dbconnection.LoginDB;
 import dbconnection.Player;
 import dbconnection.SignUpDB;
 import javafx.application.Platform;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
 
@@ -13,6 +15,7 @@ import java.util.Map;
 public class PlayerHandler {
     private Player player;
     private ManagePlayerConnection playerConn;
+    ArrayList<Player> list = null;
 
     /*public Player stringToPlayer(String msg)
     {
@@ -32,30 +35,35 @@ public PlayerHandler(ManagePlayerConnection playerConn) throws ClassNotFoundExce
     new Thread(new Runnable() {
         @Override
         public void run() {
+            while(true){
             try {
-                while(true){
-                    //Read MSG
+                //Read MSG
+                Map<String, Player> elements = playerConn.deserialize();
+                player = (Player) elements.values().toArray()[0];
+                System.out.println("before if");
+                if(elements.keySet().toArray()[0].equals("login")){
+                    signInAction(true);
+                }
+                else if(elements.keySet().toArray()[0].equals("signup")){
+                    signUpAction();
+                }
+                else if(elements.keySet().toArray()[0].equals("forgetPassword")){
+                    signInAction(false);
+                }else if(elements.keySet().toArray()[0].equals("list")){
+                    System.out.println(":::::: Enterd List :::::");
+                    list = GetAllPlayers(player);
+                    playerConn.serialaizeList("true",list);
+                }else if(elements.keySet().toArray()[0].equals("play")) {
+                    System.out.println(":::::: Enterd Play Mode :::::");
 
-                    Map<String, Player> elements = playerConn.deserialize();
-                    player = (Player) elements.values().toArray()[0];
-
-                    System.out.println("before if");
-                    if(elements.keySet().toArray()[0].equals("login")){
-                        signInAction(true);
-                    }
-                    else if(elements.keySet().toArray()[0].equals("signup")){
-                        signUpAction();
-                    }
-
-                    else if(elements.keySet().toArray()[0].equals("forgetPassword")){
-                        signInAction(false);
-                    }
-
+                }else{
+                    break;
+                }
+                } catch (IOException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+                    e.printStackTrace();
+                    break;
+                }
             }
-        } catch (IOException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-            e.printStackTrace();
-        }
-
     }
     }).start();
 }
@@ -86,6 +94,7 @@ public PlayerHandler(ManagePlayerConnection playerConn) throws ClassNotFoundExce
     {
         LoginDB db = new LoginDB();
         //db.Connect();
+        DBMS db1 = new DBMS();
         if(db.isExist(player,loginOrForget))
         {
             player = db.getPlayerData();
@@ -96,6 +105,29 @@ public PlayerHandler(ManagePlayerConnection playerConn) throws ClassNotFoundExce
             playerConn.serialaize("false",player);
 
         }
+    }
+    public ArrayList<Player> GetAllPlayers(Player p) {
+        DBMS db = new DBMS();
+        ArrayList<Player> list = null;
+        try {
+            list = db.SelectPlayers();
+            for (int i = 0; i < list.size(); i++) {
+                if (p.getPlayerID() == list.get(i).getPlayerID()) {
+                    list.remove(i);
+                }
+            }
+            db.closeConnection();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+
+        }
+        return list;
     }
 
 }

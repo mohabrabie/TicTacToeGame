@@ -125,7 +125,7 @@ public class Player {
         return "Player [playerID=" + playerID + ", name=" + name
                 + ", email=" + email + ", password=" + password
                 + ", main_score=" + main_score + ", status=" + status
-                + ", avatar=" + avatar + ", avat=" + "]";
+                + ", avatar=" + avatar +  "]";
     }
     public String jsonToString(){
 

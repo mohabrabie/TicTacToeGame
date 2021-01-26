@@ -9,12 +9,10 @@ package dbconnection;
 
 import javafx.scene.control.Alert;
 
-import java.net.URL;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.image.Image;
@@ -44,9 +42,9 @@ public class DBMS {
         
     }
     //this method to select 1 player on future
-    public List<Player> SelectPlayer() throws InstantiationException, IllegalAccessException, ClassNotFoundException
+    public ArrayList<Player> SelectPlayers() throws InstantiationException, IllegalAccessException, ClassNotFoundException
     {
-        List<Player> Data = new ArrayList();
+        ArrayList<Player> Data = new ArrayList();
         String sql = "select * from player";
         try (Connection conn = this.Connect();
              Statement stmt  = conn.createStatement();
@@ -65,9 +63,15 @@ public class DBMS {
                 rs.getString("status") + "\t" +
                 rs.getString("avatar") + "\t" 
                 );
+
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+        }
+        try {
+            conn.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
         this.closeConnection();
         return Data;
@@ -75,15 +79,14 @@ public class DBMS {
     public ObservableList<ListUsers> ViewForServer() throws InstantiationException, IllegalAccessException, ClassNotFoundException
     {
         ObservableList<ListUsers> Data = FXCollections.observableArrayList();
+        ListUsers user;
         String sql = "select * from player";
-        System.out.println("enterd Fun");
         try (Connection conn = this.Connect();
              Statement stmt  = conn.createStatement();
              ResultSet rs    = stmt.executeQuery(sql)){
-            System.out.println("Connected");
             // loop through the result set
             while (rs.next()) {
-                ListUsers user = new ListUsers(rs.getString("name"), rs.getString("email"),
+                user = new ListUsers(rs.getString("name"), rs.getString("email"),
                         rs.getInt("main_score"),rs.getInt("status"));
                 if(rs.getInt("status") == 1)
                 {//..\icons\icon9.png
@@ -94,15 +97,14 @@ public class DBMS {
                 }
                 user.setAvat(new ImageView(new Image(getClass().getResourceAsStream("/icons/"+rs.getString("avatar")))));
                 Data.add(user);
-                System.out.println(
-                rs.getString("name") + "\t" +
-                rs.getString("email") + "\t" +
-                rs.getInt("main_score") + "\t" +
-                rs.getInt("status") + "\t"
-                );
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+        }
+        try {
+            conn.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
         this.closeConnection();
         return Data;

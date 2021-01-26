@@ -71,6 +71,7 @@ public class ServerHomeController implements Initializable {
     private DataInputStream dis;
     private PrintStream ps;
     private Player p;
+    private int port = 55100;
     private ManagePlayerConnection playeConn;
     /**
      * Initializes the controller class.
@@ -118,9 +119,9 @@ public class ServerHomeController implements Initializable {
                 try 
                 {
                     // Create a server socket
-                    serverSocket = new ServerSocket(5080);
+                    serverSocket = new ServerSocket(port);
 
-                    Platform.runLater(() -> taLog.appendText(new Date() + ": Server started at socket 5080\n"));
+                    Platform.runLater(() -> taLog.appendText(new Date() + ": Server started at socket " + port));
                     
                     // Ready to create a session for every two players
                     while (ServerOn)
