@@ -5,55 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d3b921e9-ec7e-407b-b945-fbeed6535798" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/target/classes/icons/1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/icons/10.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/icons/11.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/icons/12.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/icons/13.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/icons/14.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/icons/15.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/icons/16.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/icons/17.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/icons/18.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/icons/19.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/icons/2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/icons/20.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/icons/21.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/icons/22.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/icons/3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/icons/4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/icons/5.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/icons/6.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/icons/7.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/icons/8.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/icons/9.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/icons/bg.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/icons/bot.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/icons/email_48px.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/icons/icons8_contacts_64px.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/icons/icons8_forward_filled_100px_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/icons/icons8_gender_neutral_user_128px.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/icons/icons8_lock_52px.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/icons/off.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/icons/on.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/ManagePlayerConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/ManagePlayerConnection.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/controllers/PlayerHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/PlayerHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/ServerHomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/ServerHomeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dbconnection/DBMS.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dbconnection/DBMS.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dbconnection/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dbconnection/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dbconnection/SQLNotes.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dbconnection/SQLNotes.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dbconnection/TicTacToeDB.db" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dbconnection/TicTacToeDB.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/controllers/ManagePlayerConnection$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controllers/ManagePlayerConnection$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/controllers/ManagePlayerConnection.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controllers/ManagePlayerConnection.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/controllers/PlayerHandler$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controllers/PlayerHandler$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/controllers/PlayerHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controllers/PlayerHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/controllers/ServerHomeController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controllers/ServerHomeController$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/controllers/ServerHomeController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controllers/ServerHomeController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/dbconnection/DBMS.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/dbconnection/DBMS.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/dbconnection/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/dbconnection/Player.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dbconnection/LoginDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dbconnection/LoginDB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dbconnection/SignUpDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dbconnection/SignUpDB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/dbconnection/LoginDB.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/dbconnection/LoginDB.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/dbconnection/SignUpDB.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/dbconnection/SignUpDB.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -253,7 +209,7 @@
       <workItem from="1611645973274" duration="597000" />
       <workItem from="1611648238289" duration="13683000" />
       <workItem from="1611692061243" duration="482000" />
-      <workItem from="1611692761211" duration="988000" />
+      <workItem from="1611692761211" duration="1568000" />
     </task>
     <servers />
   </component>

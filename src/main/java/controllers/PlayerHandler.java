@@ -7,6 +7,7 @@ import dbconnection.SignUpDB;
 import javafx.application.Platform;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
@@ -59,7 +60,7 @@ public PlayerHandler(ManagePlayerConnection playerConn) throws ClassNotFoundExce
                 }else{
                     break;
                 }
-                } catch (IOException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+                } catch (IOException | ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {
                     e.printStackTrace();
                     break;
                 }
@@ -68,14 +69,15 @@ public PlayerHandler(ManagePlayerConnection playerConn) throws ClassNotFoundExce
     }).start();
 }
 
-    public void signUpAction() throws ClassNotFoundException, InstantiationException, IllegalAccessException
-    {
+    public void signUpAction() throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
         SignUpDB db = new SignUpDB();
         //db.Connect();
         if (!db.isExist(player)) {
             //insert successfull
             System.out.println("inside isExist");
-            boolean bol = db.newPlayer(player);
+            boolean bol = false;
+            bol = db.newPlayer(player);
+
 
             System.out.println("after new player " + bol);
 
@@ -90,8 +92,7 @@ public PlayerHandler(ManagePlayerConnection playerConn) throws ClassNotFoundExce
         }
 
     }
-    public void signInAction(boolean loginOrForget) throws ClassNotFoundException, InstantiationException, IllegalAccessException,IOException
-    {
+    public void signInAction(boolean loginOrForget) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, SQLException {
         LoginDB db = new LoginDB();
         //db.Connect();
         DBMS db1 = new DBMS();
