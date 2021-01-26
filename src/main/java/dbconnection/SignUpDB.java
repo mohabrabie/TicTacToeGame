@@ -32,8 +32,9 @@ public class SignUpDB {
             PreparedStatement pins = conn.prepareStatement("Select * From player where email=?");
             pins.setString(1,p.getEmail());
             
-       
+            
             ResultSet rs = pins.executeQuery();
+            
             // loop through the result set
             if(rs.next())
             {
@@ -42,7 +43,6 @@ public class SignUpDB {
                             ,rs.getInt("main_score"),rs.getInt("status"),rs.getString("avatar"));
                 return true;
             }
-            
         } catch (Exception e) {
             //e.printStackTrace();
             System.out.println("catch signupDB !!");
@@ -51,7 +51,7 @@ public class SignUpDB {
         return false;
     }
 
-    public boolean newPlayer(Player p) {
+    public boolean newPlayer(Player p) throws SQLException {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         try {
             PreparedStatement pins = conn.prepareStatement("INSERT INTO player(name,email,password,main_score,status,avatar) VALUES(?,?,?,?,?,?) ");
@@ -66,16 +66,19 @@ public class SignUpDB {
             
             if(status != 0)
             {
+                conn.close();
+                db.closeConnection();
                 return true;
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        //db.closeConnection();
+        conn.close();
+        db.closeConnection();
         return false;
     }
     
-    public boolean updatePlayer(Player p) {
+    public boolean updatePlayer(Player p) throws SQLException {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         try {
             PreparedStatement pins = conn.prepareStatement("UPDATE player SET name = ?,password = ? WHERE email = ?");
@@ -87,12 +90,15 @@ public class SignUpDB {
             
             if(status != 0)
             {
+                conn.close();
+                db.closeConnection();
                 return true;
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        //db.closeConnection();
+        conn.close();
+        db.closeConnection();
         return false;
     }
     

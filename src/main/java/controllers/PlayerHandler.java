@@ -6,8 +6,11 @@ import dbconnection.SignUpDB;
 import javafx.application.Platform;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class PlayerHandler {
@@ -56,13 +59,15 @@ public PlayerHandler(ManagePlayerConnection playerConn) throws ClassNotFoundExce
             }
         } catch (IOException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
             e.printStackTrace();
-        }
+        }   catch (SQLException ex) {
+                Logger.getLogger(PlayerHandler.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
     }
     }).start();
 }
 
-    public void signUpAction() throws ClassNotFoundException, InstantiationException, IllegalAccessException
+    public void signUpAction() throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException
     {
         SignUpDB db = new SignUpDB();
         //db.Connect();
@@ -84,7 +89,7 @@ public PlayerHandler(ManagePlayerConnection playerConn) throws ClassNotFoundExce
         }
 
     }
-    public void signInAction(boolean loginOrForget) throws ClassNotFoundException, InstantiationException, IllegalAccessException,IOException
+    public void signInAction(boolean loginOrForget) throws ClassNotFoundException, InstantiationException, IllegalAccessException,IOException, SQLException
     {
         LoginDB db = new LoginDB();
         //db.Connect();
@@ -99,13 +104,14 @@ public PlayerHandler(ManagePlayerConnection playerConn) throws ClassNotFoundExce
 
         }
     }
-    public void updateProfileAction() throws ClassNotFoundException, InstantiationException, IllegalAccessException,IOException
+    public void updateProfileAction() throws ClassNotFoundException, InstantiationException, IllegalAccessException,IOException, SQLException
     {
         SignUpDB db = new SignUpDB();
         //db.Connect();
         if(db.isExist(player))
         {
             boolean bol = db.updatePlayer(player);
+            System.out.println(bol);
             if(bol)
                 playerConn.serialaize("true",player);
 
