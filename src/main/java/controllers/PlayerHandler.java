@@ -8,9 +8,14 @@ import javafx.application.Platform;
 
 import java.io.IOException;
 import java.sql.SQLException;
+<<<<<<< HEAD
 import java.util.ArrayList;
+=======
+>>>>>>> 8b2af261506851c4e569647bf71c918f47766f3a
 import java.util.Date;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class PlayerHandler {
@@ -38,6 +43,7 @@ public PlayerHandler(ManagePlayerConnection playerConn) throws ClassNotFoundExce
         public void run() {
             while(true){
             try {
+<<<<<<< HEAD
                 //Read MSG
                 Map<String, Player> elements = playerConn.deserialize();
                 player = (Player) elements.values().toArray()[0];
@@ -65,11 +71,45 @@ public PlayerHandler(ManagePlayerConnection playerConn) throws ClassNotFoundExce
                     break;
                 }
             }
+=======
+                while(true){
+                    //Read MSG
+
+                    Map<String, Player> elements = playerConn.deserialize();
+                    player = (Player) elements.values().toArray()[0];
+
+                    System.out.println("before if");
+                    if(elements.keySet().toArray()[0].equals("login")){
+                        signInAction(true);
+                    }
+                    else if(elements.keySet().toArray()[0].equals("signup")){
+                        signUpAction();
+                    }
+
+                    else if(elements.keySet().toArray()[0].equals("forgetPassword")){
+                        signInAction(false);
+                    }else if(elements.keySet().toArray()[0].equals("updateProfile")){
+                        updateProfileAction();
+                    }
+
+            }
+        } catch (IOException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+            e.printStackTrace();
+        }   catch (SQLException ex) {
+                Logger.getLogger(PlayerHandler.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+>>>>>>> 8b2af261506851c4e569647bf71c918f47766f3a
     }
     }).start();
 }
 
+<<<<<<< HEAD
     public void signUpAction() throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
+=======
+    public void signUpAction() throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException
+    {
+>>>>>>> 8b2af261506851c4e569647bf71c918f47766f3a
         SignUpDB db = new SignUpDB();
         //db.Connect();
         if (!db.isExist(player)) {
@@ -92,7 +132,12 @@ public PlayerHandler(ManagePlayerConnection playerConn) throws ClassNotFoundExce
         }
 
     }
+<<<<<<< HEAD
     public void signInAction(boolean loginOrForget) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, SQLException {
+=======
+    public void signInAction(boolean loginOrForget) throws ClassNotFoundException, InstantiationException, IllegalAccessException,IOException, SQLException
+    {
+>>>>>>> 8b2af261506851c4e569647bf71c918f47766f3a
         LoginDB db = new LoginDB();
         //db.Connect();
         DBMS db1 = new DBMS();
@@ -107,6 +152,7 @@ public PlayerHandler(ManagePlayerConnection playerConn) throws ClassNotFoundExce
 
         }
     }
+<<<<<<< HEAD
     public ArrayList<Player> GetAllPlayers(Player p) {
         DBMS db = new DBMS();
         ArrayList<Player> list = null;
@@ -129,6 +175,26 @@ public PlayerHandler(ManagePlayerConnection playerConn) throws ClassNotFoundExce
 
         }
         return list;
+=======
+    public void updateProfileAction() throws ClassNotFoundException, InstantiationException, IllegalAccessException,IOException, SQLException
+    {
+        SignUpDB db = new SignUpDB();
+        //db.Connect();
+        if(db.isExist(player))
+        {
+            boolean bol = db.updatePlayer(player);
+            System.out.println(bol);
+            if(bol)
+                playerConn.serialaize("true",player);
+
+            else
+                playerConn.serialaize("false",player);
+
+        } else {
+            playerConn.serialaize("false",player);
+
+        }
+>>>>>>> 8b2af261506851c4e569647bf71c918f47766f3a
     }
 
 }
