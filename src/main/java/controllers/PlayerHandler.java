@@ -20,17 +20,6 @@ public class PlayerHandler {
     private ManagePlayerConnection playerConn;
     ArrayList<Player> list = null;
 
-    /*public Player stringToPlayer(String msg)
-    {
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            return mapper.readValue(msg, Player.class);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
-
-    }*/
     public PlayerHandler(ManagePlayerConnection playerConn) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException {
         this.playerConn = playerConn;
 
@@ -40,25 +29,30 @@ public class PlayerHandler {
                 while (true) {
                     try {
                         //Read MSG
-                        Map<String, Player> elements = playerConn.deserialize();
-                        player = (Player) elements.values().toArray()[0];
-                        System.out.println("before if");
-                        if (elements.keySet().toArray()[0].equals("login")) {
-                            signInAction(true);
-                        } else if (elements.keySet().toArray()[0].equals("signup")) {
-                            signUpAction();
-                        } else if (elements.keySet().toArray()[0].equals("forgetPassword")) {
-                            signInAction(false);
-                        } else if (elements.keySet().toArray()[0].equals("list")) {
-                            System.out.println(":::::: Enterd List :::::");
-                            list = GetAllPlayers(player);
-                            playerConn.serialaizeList("true", list);
-                        } else if (elements.keySet().toArray()[0].equals("play")) {
-                            System.out.println(":::::: Enterd Play Mode :::::");
 
-                        } else {
-                            break;
-                        }
+                            Map<String, Player> elements = playerConn.deserialize();
+                            player = (Player) elements.values().toArray()[0];
+                            //System.out.println("before if");
+                            if (elements.keySet().toArray()[0].equals("login")) {
+                                signInAction(true);
+                            } else if (elements.keySet().toArray()[0].equals("signup")) {
+                                signUpAction();
+                            } else if (elements.keySet().toArray()[0].equals("forgetPassword")) {
+                                signInAction(false);
+                            } else if (elements.keySet().toArray()[0].equals("updateProfile")) {
+                                updateProfileAction();
+                            }
+                            else if (elements.keySet().toArray()[0].equals("list")) {
+                                System.out.println(":::::: Enterd List :::::");
+                                list = GetAllPlayers(player);
+                                playerConn.serialaizeList("true", list);
+                            } else if (elements.keySet().toArray()[0].equals("play")) {
+                                System.out.println(":::::: Enterd Play Mode :::::");
+
+                            } else {
+                                break;
+                            }
+
                     } catch (IOException | ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {
                         e.printStackTrace();
                         break;
@@ -74,12 +68,12 @@ public class PlayerHandler {
         //db.Connect();
         if (!db.isExist(player)) {
             //insert successfull
-            System.out.println("inside isExist");
+            //System.out.println("inside isExist");
             boolean bol = false;
             bol = db.newPlayer(player);
 
 
-            System.out.println("after new player " + bol);
+            //System.out.println("after new player " + bol);
 
             if (bol)
                 playerConn.serialaize("true", player);
@@ -99,6 +93,7 @@ public class PlayerHandler {
         DBMS db1 = new DBMS();
         if (db.isExist(player, loginOrForget)) {
             player = db.getPlayerData();
+            System.out.println("login: "+player.getPlayerID()+" "+player.getName()+" "+player.getAvatar());
             playerConn.serialaize("true", player);
 
             System.out.println("Found");
@@ -111,44 +106,35 @@ public class PlayerHandler {
     public ArrayList<Player> GetAllPlayers(Player p) throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
         DBMS db1 = new DBMS();
         ArrayList<Player> list = null;
-        try {
-            list = db1.SelectPlayers();
-            for (int i = 0; i < list.size(); i++) {
-                if (p.getPlayerID() == list.get(i).getPlayerID()) {
-                    list.remove(i);
-                }
+
+        list = db1.SelectPlayers();
+        for (int i = 0; i < list.size(); i++) {
+            if (p.getPlayerID() == list.get(i).getPlayerID()) {
+                list.remove(i);
             }
-            db1.closeConnection();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-
         }
+        db1.closeConnection();
+
         return list;
     }
-        public void updateProfileAction() throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
-            SignUpDB db = new SignUpDB();
-            //db.Connect();
-            if (db.isExist(player)) {
-                boolean bol = db.updatePlayer(player);
-                System.out.println(bol);
-                if (bol)
-                    playerConn.serialaize("true", player);
+    public void updateProfileAction() throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
+        SignUpDB db = new SignUpDB();
+        //db.Connect();
+        if (db.isExist(player)) {
+            boolean bol = db.updatePlayer(player);
+            //System.out.println(bol);
+            if (bol)
+                playerConn.serialaize("true", player);
 
-                else
-                    playerConn.serialaize("false", player);
-
-            } else {
+            else
                 playerConn.serialaize("false", player);
 
-            }
+        } else {
+            playerConn.serialaize("false", player);
 
         }
+
+    }
 
     }
 
