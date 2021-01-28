@@ -23,10 +23,14 @@ public class LoginDB {
     private DBMS db;
     private Player player;
 
-    public boolean isExist(Player p,boolean loginOrforget) throws ClassNotFoundException, IllegalAccessException, InstantiationException, SQLException {
+    public LoginDB() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
         db = new DBMS();
+        conn = db.Connect();
+    }
+
+    public boolean isExist(Player p,boolean loginOrforget) throws ClassNotFoundException, IllegalAccessException, InstantiationException, SQLException {
         try {
-            conn = db.Connect();
+            //conn = db.Connect();
             //conn = this.Connect();
             PreparedStatement pins;
             if(loginOrforget){
@@ -46,14 +50,34 @@ public class LoginDB {
                 player = new Player(rs.getInt("playerID"),rs.getString("name")
                         , rs.getString("email"),rs.getString("password")
                         ,rs.getInt("main_score"),rs.getInt("status"),rs.getString("avatar"));
-                conn.close();
-                db.closeConnection();
+                //conn.close();
+                //db.closeConnection();
                 return true;
             }
 
         } catch (Exception e) {
             //e.printStackTrace();
             System.out.println("catch login DB !!");
+        }
+        //conn.close();
+        //db.closeConnection();
+        return false;
+    }
+    public boolean updateStatus(int flag) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+        player = getPlayerData();
+        PreparedStatement pins = conn.prepareStatement("UPDATE player SET status = ? WHERE email = ?");
+        pins.setInt(1,flag);
+        pins.setString(2,player.getEmail());
+
+        int status = pins.executeUpdate();
+
+        if(status != 0)
+        {
+            //player = getPlayerData();
+            System.out.println("status updated");
+            conn.close();
+            db.closeConnection();
+            return true;
         }
         conn.close();
         db.closeConnection();

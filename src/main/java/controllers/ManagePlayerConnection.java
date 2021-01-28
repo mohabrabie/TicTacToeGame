@@ -62,14 +62,18 @@ public class ManagePlayerConnection {
     public Map<String, Player> deserialize() throws IOException
     {
         ObjectMapper objectMapper = new ObjectMapper();
-        String msg = dis.readLine();
-        System.out.println(msg);
+        String msg;
+        if((msg = dis.readLine())!= null) {
+            System.out.println(msg);
 
-        // Convert from string to map<str,player>
-        Map<String, Player> elements = objectMapper.readValue(msg,new TypeReference<Map<String, Player>>() {});
-        System.out.println(elements.values().toArray()[0]);
+            // Convert from string to map<str,player>
+            Map<String, Player> elements = objectMapper.readValue(msg, new TypeReference<Map<String, Player>>() {
+            });
+            System.out.println(elements.values().toArray()[0]);
 
-        return elements;
+            return elements;
+        }
+        return null;
     }
     public void closeConnection()
     {

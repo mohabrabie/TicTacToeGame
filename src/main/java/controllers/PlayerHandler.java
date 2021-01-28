@@ -30,29 +30,34 @@ public class PlayerHandler {
                     try {
                         //Read MSG
 
-                            Map<String, Player> elements = playerConn.deserialize();
-                            player = (Player) elements.values().toArray()[0];
-                            //System.out.println("before if");
-                            if (elements.keySet().toArray()[0].equals("login")) {
-                                signInAction(true);
-                            } else if (elements.keySet().toArray()[0].equals("signup")) {
-                                signUpAction();
-                            } else if (elements.keySet().toArray()[0].equals("forgetPassword")) {
-                                signInAction(false);
-                            } else if (elements.keySet().toArray()[0].equals("updateProfile")) {
-                                updateProfileAction();
-                            }
-                            else if (elements.keySet().toArray()[0].equals("list")) {
-                                System.out.println(":::::: Enterd List :::::");
-                                list = GetAllPlayers(player);
-                                playerConn.serialaizeList("true", list);
-                            } else if (elements.keySet().toArray()[0].equals("play")) {
-                                System.out.println(":::::: Enterd Play Mode :::::");
+                            Map<String, Player> elements ;
+                            if((elements = playerConn.deserialize()) != null) {
+                                player = (Player) elements.values().toArray()[0];
+                                //System.out.println("before if");
+                                if (elements.keySet().toArray()[0].equals("login")) {
+                                    signInAction(true,1);
+                                } else if (elements.keySet().toArray()[0].equals("signup")) {
+                                    signUpAction();
+                                } else if (elements.keySet().toArray()[0].equals("forgetPassword")) {
+                                    signInAction(false,1);
+                                }else if (elements.keySet().toArray()[0].equals("logout")) {
+                                    signInAction(false, 0);
+                                }else if (elements.keySet().toArray()[0].equals("updateProfile")) {
+                                    updateProfileAction();
+                                } else if (elements.keySet().toArray()[0].equals("list")) {
+                                    System.out.println(":::::: Enterd List :::::");
+                                    list = GetAllPlayers(player);
+                                    playerConn.serialaizeList("true", list);
+                                } else if (elements.keySet().toArray()[0].equals("play")) {
+                                    System.out.println(":::::: Enterd Play Mode :::::");
 
-                            } else {
+                                } else {
+                                    break;
+                                }
+                            }else{
+                                System.out.println("Connection is lost");
                                 break;
                             }
-
                     } catch (IOException | ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {
                         e.printStackTrace();
                         break;
@@ -87,13 +92,18 @@ public class PlayerHandler {
 
     }
 
-    public void signInAction(boolean loginOrForget) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, SQLException {
+    public void signInAction(boolean loginOrForget,int status) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, SQLException {
         LoginDB db = new LoginDB();
-        //db.Connect();
-        DBMS db1 = new DBMS();
-        if (db.isExist(player, loginOrForget)) {
+
+        if (db.isExist(player, loginOrForget))
+        {
+            boolean isUpdated = db.updateStatus(status);
+            if(isUpdated)
+                System.out.println("Status is updated");
+            else
+                System.out.println("Error updating the status");
+
             player = db.getPlayerData();
-            System.out.println("login: "+player.getPlayerID()+" "+player.getName()+" "+player.getAvatar());
             playerConn.serialaize("true", player);
 
             System.out.println("Found");
