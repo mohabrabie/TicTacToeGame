@@ -25,7 +25,6 @@ public class Player {
 
 
     public Player() {
-        System.out.println("Hi from default constructor.");
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     public Player(int playerID, String name, String email, String password, int main_score, int status, String avatar) {

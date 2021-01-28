@@ -7,9 +7,11 @@ import dbconnection.SignUpDB;
 import javafx.application.Platform;
 
 import java.io.IOException;
+import java.net.Socket;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,23 +19,13 @@ import java.util.logging.Logger;
 
 public class PlayerHandler {
     private Player player;
+    private Player thisPlayer;
     private ManagePlayerConnection playerConn;
     ArrayList<Player> list = null;
+    static Map<Integer,ManagePlayerConnection> onlinePlayers = new HashMap<Integer,ManagePlayerConnection>();
 
-    /*public Player stringToPlayer(String msg)
-    {
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            return mapper.readValue(msg, Player.class);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
-
-    }*/
     public PlayerHandler(ManagePlayerConnection playerConn) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException {
         this.playerConn = playerConn;
-
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -53,13 +45,39 @@ public class PlayerHandler {
                             System.out.println(":::::: Enterd List :::::");
                             list = GetAllPlayers(player);
                             playerConn.serialaizeList("true", list);
+                            thisPlayer = player;
                         } else if (elements.keySet().toArray()[0].equals("play")) {
                             System.out.println(":::::: Enterd Play Mode :::::");
-
-                        } else {
+                            System.out.println(PlayerHandler.onlinePlayers);
+                            Player myFriend = player;
+                            if(FindMyFriend(myFriend))
+                            {
+                                System.out.println("Match between " + thisPlayer.getName() +" and " + myFriend.getName());
+                                System.out.println(PlayerHandler.onlinePlayers.get(myFriend.getPlayerID()));
+                                PlayerHandler.onlinePlayers.get(myFriend.getPlayerID()).serialaize("play",thisPlayer);
+                                System.out.println("Data Sent....to " + myFriend.getName());
+                            }else{
+                                System.out.println("Sorry he/she is offline");
+                                playerConn.serialaize("offline", player);
+                            }
+                            //GetAnswer from Player
+                        }else if(elements.keySet().toArray()[0].equals("yes")){
+                            System.out.println("sedning yes to "+player.getName());
+                            PlayerHandler.onlinePlayers.get(player.getPlayerID()).serialaize("yes",thisPlayer);
+                            System.out.println("she accepted");
+                        }else if(elements.keySet().toArray()[0].equals("no")){
+                            System.out.println("sedning no to "+player.getName());
+                            PlayerHandler.onlinePlayers.get(player.getPlayerID()).serialaize("no",thisPlayer);
+                            System.out.println("she did not accepted");
+                        }
+                        else {
+                            playerConn.closeConnection();
+                            PlayerHandler.onlinePlayers.remove(player.getPlayerID());
                             break;
                         }
                     } catch (IOException | ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {
+                        PlayerHandler.onlinePlayers.remove(player.getPlayerID());
+                        playerConn.closeConnection();
                         e.printStackTrace();
                         break;
                     }
@@ -77,16 +95,13 @@ public class PlayerHandler {
             System.out.println("inside isExist");
             boolean bol = false;
             bol = db.newPlayer(player);
-
-
             System.out.println("after new player " + bol);
-
-            if (bol)
+            if (bol) {
                 playerConn.serialaize("true", player);
-
+                thisPlayer = player;
+            }
             else
                 playerConn.serialaize("false", player);
-
         } else {
             playerConn.serialaize("false", player);
         }
@@ -100,11 +115,9 @@ public class PlayerHandler {
         if (db.isExist(player, loginOrForget)) {
             player = db.getPlayerData();
             playerConn.serialaize("true", player);
-
-            System.out.println("Found");
+            PlayerHandler.onlinePlayers.put(player.getPlayerID(),playerConn);
         } else {
             playerConn.serialaize("false", player);
-
         }
     }
 
@@ -119,15 +132,8 @@ public class PlayerHandler {
                 }
             }
             db1.closeConnection();
-        } catch (InstantiationException e) {
+        } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
             e.printStackTrace();
-
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-
         }
         return list;
     }
@@ -149,6 +155,16 @@ public class PlayerHandler {
             }
 
         }
-
+        public boolean FindMyFriend(Player player){
+            System.out.println("Play with :::: "+player);
+            for(int id :  PlayerHandler.onlinePlayers.keySet())
+            {
+                if(id == player.getPlayerID())
+                {
+                    System.out.println("yes I found him ");
+                    return true;
+                }
+            }
+            return false;
+        }
     }
-

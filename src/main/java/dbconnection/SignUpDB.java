@@ -27,9 +27,10 @@ public class SignUpDB {
 
     public boolean isExist(Player p) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
         db = new DBMS();
+        PreparedStatement pins = null;
         try {
             conn = db.Connect();
-            PreparedStatement pins = conn.prepareStatement("Select * From player where email=?");
+            pins = conn.prepareStatement("Select * From player where email=?");
             pins.setString(1,p.getEmail());
             
             
@@ -46,15 +47,22 @@ public class SignUpDB {
         } catch (Exception e) {
             //e.printStackTrace();
             System.out.println("catch signupDB !!");
+        }finally {
+            try {
+                pins.close();
+                conn.close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
         }
-        //this.closeConnection();
         return false;
     }
 
     public boolean newPlayer(Player p) throws SQLException {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        PreparedStatement pins = null;
         try {
-            PreparedStatement pins = conn.prepareStatement("INSERT INTO player(name,email,password,main_score,status,avatar) VALUES(?,?,?,?,?,?) ");
+            pins = conn.prepareStatement("INSERT INTO player(name,email,password,main_score,status,avatar) VALUES(?,?,?,?,?,?) ");
             pins.setString(1,p.getName());
             pins.setString(2,p.getEmail());
             pins.setString(3,p.getPassword());
@@ -67,6 +75,7 @@ public class SignUpDB {
             if(status != 0)
             {
                 conn.close();
+                pins.close();
                 db.closeConnection();
                 return true;
             }
@@ -74,14 +83,16 @@ public class SignUpDB {
             e.printStackTrace();
         }
         conn.close();
+        pins.close();
         db.closeConnection();
         return false;
     }
     
     public boolean updatePlayer(Player p) throws SQLException {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        PreparedStatement pins = null;
         try {
-            PreparedStatement pins = conn.prepareStatement("UPDATE player SET name = ?,password = ? WHERE email = ?");
+            pins = conn.prepareStatement("UPDATE player SET name = ?,password = ? WHERE email = ?");
             pins.setString(1,p.getName());
             pins.setString(2,p.getPassword());
             pins.setString(3,p.getEmail());
@@ -91,6 +102,7 @@ public class SignUpDB {
             if(status != 0)
             {
                 conn.close();
+                pins.close();
                 db.closeConnection();
                 return true;
             }
@@ -98,6 +110,7 @@ public class SignUpDB {
             e.printStackTrace();
         }
         conn.close();
+        pins.close();
         db.closeConnection();
         return false;
     }

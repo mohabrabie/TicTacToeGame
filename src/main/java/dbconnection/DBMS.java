@@ -46,9 +46,11 @@ public class DBMS {
     {
         ArrayList<Player> Data = new ArrayList();
         String sql = "select * from player";
-        try (Connection conn = this.Connect();
-             Statement stmt  = conn.createStatement();
-             ResultSet rs    = stmt.executeQuery(sql)){
+        Statement stmt = null;
+        try {
+            Connection conn = this.Connect();
+            stmt  = conn.createStatement();
+            ResultSet rs    = stmt.executeQuery(sql);
             // loop through the result set
             while (rs.next()) {
                 Player p = new Player(rs.getInt("playerID"),rs.getString("name")
@@ -67,24 +69,29 @@ public class DBMS {
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+        }finally {
+            try {
+                conn.close();
+                stmt.close();
+                this.closeConnection();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
         }
-        try {
-            conn.close();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        this.closeConnection();
+        
         return Data;
     }
     public ObservableList<ListUsers> ViewForServer() throws InstantiationException, IllegalAccessException, ClassNotFoundException
     {
         ObservableList<ListUsers> Data = FXCollections.observableArrayList();
         ListUsers user;
+        Statement stmt = null;
         String sql = "select * from player";
-        try (Connection conn = this.Connect();
-             Statement stmt  = conn.createStatement();
-             ResultSet rs    = stmt.executeQuery(sql)){
+        try{
             // loop through the result set
+            Connection conn = this.Connect();
+            stmt  = conn.createStatement();
+            ResultSet rs    = stmt.executeQuery(sql);
             while (rs.next()) {
                 user = new ListUsers(rs.getString("name"), rs.getString("email"),
                         rs.getInt("main_score"),rs.getInt("status"));
@@ -100,13 +107,15 @@ public class DBMS {
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+        }finally {
+            try{
+                conn.close();
+                stmt.close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            this.closeConnection();
         }
-        try {
-            conn.close();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        this.closeConnection();
         return Data;
     }
     public void addNewPlayer(String pName,String pEmail,String password,int pScore,String pStatus)

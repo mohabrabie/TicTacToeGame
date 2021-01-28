@@ -25,10 +25,10 @@ public class LoginDB {
 
      public boolean isExist(Player p,boolean loginOrforget) throws ClassNotFoundException, IllegalAccessException, InstantiationException, SQLException {     
          db = new DBMS();
+         conn = db.Connect();
+         //conn = this.Connect();
+         PreparedStatement pins = null;
          try {
-            conn = db.Connect();
-            //conn = this.Connect();
-            PreparedStatement pins;
             if(loginOrforget){
                    pins = conn.prepareStatement("Select * From player where email=? and password=?");
                    pins.setString(1,p.getEmail());
@@ -48,6 +48,7 @@ public class LoginDB {
                         ,rs.getInt("main_score"),rs.getInt("status"),rs.getString("avatar"));
                 conn.close();
                 db.closeConnection();
+                pins.close();
                 return true;
             }
             
@@ -55,9 +56,10 @@ public class LoginDB {
             //e.printStackTrace();
             System.out.println("catch login DB !!");
         }
-        conn.close();
-        db.closeConnection();
-        return false;
+         conn.close();
+         pins.close();
+         db.closeConnection();
+         return false;
     }
      public Player getPlayerData()
      {           

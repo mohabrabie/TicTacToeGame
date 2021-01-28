@@ -13,6 +13,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.URL;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -68,10 +69,7 @@ public class ServerHomeController implements Initializable {
     Thread main;
     boolean tableOn = false;
     DBMS db = new DBMS();
-    private DataInputStream dis;
-    private PrintStream ps;
-    private Player p;
-    private int port = 55100;
+    private int port = 55111;
     private ManagePlayerConnection playeConn;
     /**
      * Initializes the controller class.
