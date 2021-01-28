@@ -9,6 +9,7 @@ import javafx.application.Platform;
 import java.io.IOException;
 import java.net.Socket;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -23,6 +24,7 @@ public class PlayerHandler {
     private ManagePlayerConnection playerConn;
     ArrayList<Player> list = null;
     static Map<Integer,ManagePlayerConnection> onlinePlayers = new HashMap<Integer,ManagePlayerConnection>();
+    SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
 
     public PlayerHandler(ManagePlayerConnection playerConn) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException {
         this.playerConn = playerConn;
@@ -45,10 +47,12 @@ public class PlayerHandler {
                         {
                             System.out.println(":::::: Enterd List :::::");
                             list = GetAllPlayers(player);
+                            playerConn.serialaize("list", player);
                             playerConn.serialaizeList("true", list);
                             thisPlayer = player;
                         }else if (elements.keySet().toArray()[0].equals("logout")) {
-                            signInAction(false, 0);
+                            //signInAction(false, 0);
+
                         }else if (elements.keySet().toArray()[0].equals("updateProfile")) {
                             updateProfileAction();
                         } else if (elements.keySet().toArray()[0].equals("play")) {
@@ -75,10 +79,8 @@ public class PlayerHandler {
                             PlayerHandler.onlinePlayers.get(player.getPlayerID()).serialaize("no",thisPlayer);
                             System.out.println("she did not accepted");
                         }
-                        else {
-                            playerConn.closeConnection();
-                            PlayerHandler.onlinePlayers.remove(player.getPlayerID());
-                            break;
+                        else if(elements.keySet().toArray()[0].equals("non")){
+                            playerConn.serialaize("non", player);
                         }
                     } catch (IOException | ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {
                         PlayerHandler.onlinePlayers.remove(player.getPlayerID());
@@ -126,6 +128,7 @@ public class PlayerHandler {
             player = db.getPlayerData();
             playerConn.serialaize("true", player);
             PlayerHandler.onlinePlayers.put(player.getPlayerID(),playerConn);
+
         } else {
             playerConn.serialaize("false", player);
         }

@@ -6,46 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="b3c97818-785d-44e8-9334-97c42375da89" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/ManagePlayerConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/ManagePlayerConnection.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/controllers/PlayerHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/PlayerHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dbconnection/DBMS.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dbconnection/DBMS.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dbconnection/LoginDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dbconnection/LoginDB.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dbconnection/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dbconnection/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/ServerHomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/ServerHomeController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dbconnection/TicTacToeDB.db" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dbconnection/TicTacToeDB.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/icons/1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/icons/10.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/icons/11.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/icons/12.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/icons/13.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/icons/14.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/icons/15.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/icons/16.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/icons/17.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/icons/18.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/icons/19.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/icons/2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/icons/20.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/icons/21.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/icons/22.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/icons/3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/icons/4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/icons/5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/icons/6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/icons/7.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/icons/8.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/icons/9.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/icons/bg.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/icons/bot.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/icons/email_48px.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/icons/icons8_contacts_64px.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/icons/icons8_forward_filled_100px_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/icons/icons8_gender_neutral_user_128px.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/icons/icons8_lock_52px.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/icons/off.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/icons/on.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -277,6 +241,15 @@
     <option name="version" value="1" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="editorHistoryManager">

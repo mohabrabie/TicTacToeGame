@@ -5,36 +5,24 @@
  */
 package controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import dbconnection.*;
 import java.io.*;
 import java.net.ServerSocket;
-import java.net.Socket;
 import java.net.URL;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -83,8 +71,7 @@ public class ServerHomeController implements Initializable {
         scoreCol.setCellValueFactory(new PropertyValueFactory<ListUsers,Integer>("main_score"));
         statusCol.setCellValueFactory(new PropertyValueFactory<ListUsers,ImageView>("stat"));
         avatarCol.setCellValueFactory(new PropertyValueFactory<ListUsers,ImageView>("avat"));
-    }    
-    
+    }
     public void ViewUsersAction(ActionEvent event) throws IOException
     {
         if(tableOn == true)
@@ -119,7 +106,9 @@ public class ServerHomeController implements Initializable {
                     // Create a server socket
                     serverSocket = new ServerSocket(port);
 
-                    Platform.runLater(() -> taLog.appendText(new Date() + ": Server started at socket " + port));
+                    Platform.runLater(() -> {
+                        taLog.appendText(new Date() + ": Server started at socket " + port);
+                    });
                     
                     // Ready to create a session for every two players
                     while (ServerOn)
