@@ -36,16 +36,21 @@ public class PlayerHandler {
                         player = (Player) elements.values().toArray()[0];
                         System.out.println("before if");
                         if (elements.keySet().toArray()[0].equals("login")) {
-                            signInAction(true);
+                            signInAction(true,1);
                         } else if (elements.keySet().toArray()[0].equals("signup")) {
                             signUpAction();
                         } else if (elements.keySet().toArray()[0].equals("forgetPassword")) {
-                            signInAction(false);
-                        } else if (elements.keySet().toArray()[0].equals("list")) {
+                            signInAction(false,1);
+                        } else if (elements.keySet().toArray()[0].equals("list"))
+                        {
                             System.out.println(":::::: Enterd List :::::");
                             list = GetAllPlayers(player);
                             playerConn.serialaizeList("true", list);
                             thisPlayer = player;
+                        }else if (elements.keySet().toArray()[0].equals("logout")) {
+                            signInAction(false, 0);
+                        }else if (elements.keySet().toArray()[0].equals("updateProfile")) {
+                            updateProfileAction();
                         } else if (elements.keySet().toArray()[0].equals("play")) {
                             System.out.println(":::::: Enterd Play Mode :::::");
                             System.out.println(PlayerHandler.onlinePlayers);
@@ -92,7 +97,7 @@ public class PlayerHandler {
         //db.Connect();
         if (!db.isExist(player)) {
             //insert successfull
-            System.out.println("inside isExist");
+            //System.out.println("inside isExist");
             boolean bol = false;
             bol = db.newPlayer(player);
             System.out.println("after new player " + bol);
@@ -108,11 +113,16 @@ public class PlayerHandler {
 
     }
 
-    public void signInAction(boolean loginOrForget) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, SQLException {
+    public void signInAction(boolean loginOrForget,int status) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, SQLException {
         LoginDB db = new LoginDB();
-        //db.Connect();
-        DBMS db1 = new DBMS();
-        if (db.isExist(player, loginOrForget)) {
+
+        if (db.isExist(player, loginOrForget))
+        {
+            boolean isUpdated = db.updateStatus(status);
+            if(isUpdated)
+                System.out.println("Status is updated");
+            else
+                System.out.println("Error updating the status");
             player = db.getPlayerData();
             playerConn.serialaize("true", player);
             PlayerHandler.onlinePlayers.put(player.getPlayerID(),playerConn);
@@ -137,24 +147,22 @@ public class PlayerHandler {
         }
         return list;
     }
-        public void updateProfileAction() throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
-            SignUpDB db = new SignUpDB();
-            //db.Connect();
-            if (db.isExist(player)) {
-                boolean bol = db.updatePlayer(player);
-                System.out.println(bol);
-                if (bol)
-                    playerConn.serialaize("true", player);
+    public void updateProfileAction() throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
+        SignUpDB db = new SignUpDB();
+        //db.Connect();
+        if (db.isExist(player)) {
+            boolean bol = db.updatePlayer(player);
+            //System.out.println(bol);
+            if (bol)
+                playerConn.serialaize("true", player);
 
-                else
-                    playerConn.serialaize("false", player);
-
-            } else {
+            else
                 playerConn.serialaize("false", player);
 
-            }
+        } else {
+            playerConn.serialaize("false", player);
 
-        }
+        }}
         public boolean FindMyFriend(Player player){
             System.out.println("Play with :::: "+player);
             for(int id :  PlayerHandler.onlinePlayers.keySet())

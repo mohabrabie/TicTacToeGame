@@ -78,7 +78,6 @@ public class DBMS {
                 throwables.printStackTrace();
             }
         }
-        
         return Data;
     }
     public ObservableList<ListUsers> ViewForServer() throws InstantiationException, IllegalAccessException, ClassNotFoundException
@@ -271,6 +270,7 @@ public class DBMS {
     public void closeConnection()
     {
         try {
+
             conn.close();
         }catch (SQLException e) {
             e.printStackTrace();
