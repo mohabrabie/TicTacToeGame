@@ -1,9 +1,6 @@
 package controllers;
 
-import dbconnection.DBMS;
-import dbconnection.LoginDB;
-import dbconnection.Player;
-import dbconnection.SignUpDB;
+import dbconnection.*;
 import javafx.application.Platform;
 
 import java.io.IOException;
@@ -16,6 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 
 
 public class PlayerHandler {
@@ -24,14 +22,20 @@ public class PlayerHandler {
     private ManagePlayerConnection playerConn;
     ArrayList<Player> list = null;
     static Map<Integer,ManagePlayerConnection> onlinePlayers = new HashMap<Integer,ManagePlayerConnection>();
+    static Map<Integer, Game> onGame = new HashMap<Integer,Game>();//Integer / Game
+    static private Player player1,player2;
+    static private ManagePlayerConnection player1Talk,player2Talk;
     SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
+    boolean gameOn = false;
 
     public PlayerHandler(ManagePlayerConnection playerConn) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException {
         this.playerConn = playerConn;
         new Thread(new Runnable() {
+
             @Override
             public void run() {
-                while (true) {
+
+                while (!gameOn) {
                     try {
                         //Read MSG
                         Map<String, Player> elements = playerConn.deserialize();
@@ -51,48 +55,87 @@ public class PlayerHandler {
                             playerConn.serialaizeList("true", list);
                             thisPlayer = player;
                         }else if (elements.keySet().toArray()[0].equals("logout")) {
-                            //signInAction(false, 0);
-
+                            signInAction(false, 0);
+                            PlayerHandler.onlinePlayers.remove(player.getPlayerID());
+                            playerConn.closeConnection();
                         }else if (elements.keySet().toArray()[0].equals("updateProfile")) {
                             updateProfileAction();
                         } else if (elements.keySet().toArray()[0].equals("play")) {
-                            System.out.println(":::::: Enterd Play Mode :::::");
-                            System.out.println(PlayerHandler.onlinePlayers);
-                            Player myFriend = player;
-                            if(FindMyFriend(myFriend))
-                            {
-                                System.out.println("Match between " + thisPlayer.getName() +" and " + myFriend.getName());
-                                System.out.println(PlayerHandler.onlinePlayers.get(myFriend.getPlayerID()));
-                                PlayerHandler.onlinePlayers.get(myFriend.getPlayerID()).serialaize("play",thisPlayer);
-                                System.out.println("Data Sent....to " + myFriend.getName());
-                            }else{
-                                System.out.println("Sorry he/she is offline");
-                                playerConn.serialaize("offline", player);
-                            }
+                            SendPlay();
                             //GetAnswer from Player
                         }else if(elements.keySet().toArray()[0].equals("yes")){
+                            //gameOn = true;
                             System.out.println("sedning yes to "+player.getName());
-                            PlayerHandler.onlinePlayers.get(player.getPlayerID()).serialaize("yes",thisPlayer);
-                            System.out.println("she accepted");
+                            System.out.println("sedning yes to "+thisPlayer.getName());
+                            PlayerHandler.onlinePlayers.get(player.getPlayerID()).serialaize("yes",thisPlayer);//sending player who accepted
+                            PlayerHandler.onlinePlayers.get(thisPlayer.getPlayerID()).serialaize("yes",player);
+                            player2 = thisPlayer; //this player is X
+                            player1 = player; // this Player is O
+                            player2Talk = PlayerHandler.onlinePlayers.get(thisPlayer.getPlayerID());
+                            player1Talk = PlayerHandler.onlinePlayers.get(player.getPlayerID());
+                            //onGame.put(player1.getPlayerID(),player2.getPlayerID());
+                            System.out.println(player1.getName() + " player1 :::::::");
+                            System.out.println(player2.getName() + " player2 :::::::");
+                            player1Talk.serialaize("first",player1);
+                            player2Talk.serialaize("second",player2);
                         }else if(elements.keySet().toArray()[0].equals("no")){
                             System.out.println("sedning no to "+player.getName());
-                            PlayerHandler.onlinePlayers.get(player.getPlayerID()).serialaize("no",thisPlayer);
-                            System.out.println("she did not accepted");
+                            PlayerHandler.onlinePlayers.get(player.getPlayerID()).serialaize("no",thisPlayer);//sending player who didn't accept
+                        }if (elements.keySet().toArray()[0].equals("leaveMatch")) {
+                            PlayerHandler.onGame.remove(player.getPlayerID());
+
+                            if(player.getPlayerID() == player1.getPlayerID())
+                            {
+                                player2Talk.serialaize("leaveMatch",player2);
+                            }else{
+                                player1Talk.serialaize("leaveMatch",player1);
+                            }
                         }
                         else if(elements.keySet().toArray()[0].equals("non")){
                             playerConn.serialaize("non", player);
+                        }else if(elements.keySet().toArray()[0].equals("after")){
+                            if(player.getPlayerID() == player1.getPlayerID())
+                            {
+                                player2Talk.serialaize("after",player2);
+                            }else if(player.getPlayerID() == player2.getPlayerID()){
+                                player1Talk.serialaize("after",player1);
+                            }
+                        }else if(isDigit((String)elements.keySet().toArray()[0]))
+                        {
+                            String move = (String)elements.keySet().toArray()[0];
+                            player2Talk.serialaize(move,player);
+                            player1Talk.serialaize(move,player);
                         }
                     } catch (IOException | ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {
+                        //e.printStackTrace();
                         PlayerHandler.onlinePlayers.remove(player.getPlayerID());
                         playerConn.closeConnection();
-                        e.printStackTrace();
                         break;
                     }
                 }
             }
         }).start();
     }
-
+    public boolean isDigit(String str){
+        Pattern pattern = Pattern.compile("\\d");
+        return pattern.matcher(str).matches();
+    }
+    public void SendPlay()
+    {
+        System.out.println(":::::: Enterd Play Mode :::::");
+        System.out.println(PlayerHandler.onlinePlayers);
+        Player myFriend = player;
+        if(FindMyFriendOnline(myFriend) && FindMyFriendOnGame(myFriend))
+        {
+            System.out.println("Match between " + thisPlayer.getName() +" and " + myFriend.getName());
+            System.out.println(PlayerHandler.onlinePlayers.get(myFriend.getPlayerID()));
+            PlayerHandler.onlinePlayers.get(myFriend.getPlayerID()).serialaize("play",thisPlayer);
+            System.out.println("Data Sent....to " + myFriend.getName());
+        }else{
+            System.out.println("Sorry he/she is offline or in a Game");
+            playerConn.serialaize("offline", player);
+        }
+    }
     public void signUpAction() throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
 
         SignUpDB db = new SignUpDB();
@@ -166,7 +209,7 @@ public class PlayerHandler {
             playerConn.serialaize("false", player);
 
         }}
-        public boolean FindMyFriend(Player player){
+        public boolean FindMyFriendOnline(Player player){
             System.out.println("Play with :::: "+player);
             for(int id :  PlayerHandler.onlinePlayers.keySet())
             {
@@ -178,4 +221,24 @@ public class PlayerHandler {
             }
             return false;
         }
+    public boolean FindMyFriendOnGame(Player player){
+        System.out.println("Play with :::: "+player);
+        for(int id :  onGame.keySet())
+        {
+            if((id == player.getPlayerID()))
+            {
+                System.out.println("he is in a Game");
+                return false;
+            }
+        }
+        for(int id :  onGame.keySet())
+        {
+            if((id == player.getPlayerID()))
+            {
+                System.out.println("he is in a Game");
+                return false;
+            }
+        }
+        return true;
+    }
     }
