@@ -100,6 +100,15 @@ public class PlayerHandler {
                             }else if(player.getPlayerID() == player2.getPlayerID()){
                                 player1Talk.serialaize("after",player1);
                             }
+                        }else if(elements.keySet().toArray()[0].equals("win")){
+                            if(player.getPlayerID() == player1.getPlayerID())
+                            {
+                                player1Talk.serialaize("win",player1);
+                                player2Talk.serialaize("lose",player2);
+                            }else if(player.getPlayerID() == player2.getPlayerID()){
+                                player1Talk.serialaize("lose",player1);
+                                player2Talk.serialaize("win",player2);
+                            }
                         }else if(isDigit((String)elements.keySet().toArray()[0]))
                         {
                             String move = (String)elements.keySet().toArray()[0];
