@@ -27,6 +27,7 @@ public class PlayerHandler {
     static private ManagePlayerConnection player1Talk,player2Talk;
     SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
     boolean gameOn = false;
+    int p1_score = 0,p2_score = 0;
 
     public PlayerHandler(ManagePlayerConnection playerConn) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException {
         this.playerConn = playerConn;
@@ -62,6 +63,7 @@ public class PlayerHandler {
                             updateProfileAction();
                         } else if (elements.keySet().toArray()[0].equals("play")) {
                             SendPlay();
+                            p1_score = p2_score =0;
                             //GetAnswer from Player
                         }else if(elements.keySet().toArray()[0].equals("yes")){
                             //gameOn = true;
@@ -71,6 +73,7 @@ public class PlayerHandler {
                             PlayerHandler.onlinePlayers.get(thisPlayer.getPlayerID()).serialaize("yes",player);
                             player2 = thisPlayer; //this player is X
                             player1 = player; // this Player is O
+                            p1_score = p2_score =0;
                             player2Talk = PlayerHandler.onlinePlayers.get(thisPlayer.getPlayerID());
                             player1Talk = PlayerHandler.onlinePlayers.get(player.getPlayerID());
                             //onGame.put(player1.getPlayerID(),player2.getPlayerID());
@@ -82,14 +85,21 @@ public class PlayerHandler {
                             System.out.println("sedning no to "+player.getName());
                             PlayerHandler.onlinePlayers.get(player.getPlayerID()).serialaize("no",thisPlayer);//sending player who didn't accept
                         }if (elements.keySet().toArray()[0].equals("leaveMatch")) {
-                            PlayerHandler.onGame.remove(player.getPlayerID());
-
                             if(player.getPlayerID() == player1.getPlayerID())
                             {
+                                System.out.println("player1 is "+player1.getName());
+                                p2_score++;
+                                p1_score-=5;
+                                updateGameStatus(player2,player1);
                                 player2Talk.serialaize("leaveMatch",player2);
                             }else{
+                                System.out.println("player2 is "+player2.getName());
+                                p1_score++;
+                                p2_score-=5;
+                                updateGameStatus(player1,player2);
                                 player1Talk.serialaize("leaveMatch",player1);
                             }
+                            PlayerHandler.onGame.remove(player.getPlayerID());
                         }
                         else if(elements.keySet().toArray()[0].equals("non")){
                             playerConn.serialaize("non", player);
@@ -103,13 +113,25 @@ public class PlayerHandler {
                         }else if(elements.keySet().toArray()[0].equals("win")){
                             if(player.getPlayerID() == player1.getPlayerID())
                             {
+                                p1_score++;
+                                p2_score-=5;
+                                updateGameStatus(player1,player2);
                                 player1Talk.serialaize("win",player1);
                                 player2Talk.serialaize("lose",player2);
                             }else if(player.getPlayerID() == player2.getPlayerID()){
+                                p2_score++;
+                                p1_score-=5;
+                                updateGameStatus(player2,player1);
                                 player1Talk.serialaize("lose",player1);
                                 player2Talk.serialaize("win",player2);
                             }
-                        }else if(isDigit((String)elements.keySet().toArray()[0]))
+                        }else if(elements.keySet().toArray()[0].equals("draw")){
+                            player1Talk.serialaize("even",player1);
+                            player2Talk.serialaize("even",player2);
+                        }else if(elements.keySet().toArray()[0].equals("rematch")){
+                            player2Talk.serialaize("even",player2);
+                        }
+                        else if(isDigit((String)elements.keySet().toArray()[0]))
                         {
                             String move = (String)elements.keySet().toArray()[0];
                             player2Talk.serialaize(move,player);
@@ -117,6 +139,12 @@ public class PlayerHandler {
                         }
                     } catch (IOException | ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {
                         //e.printStackTrace();
+                        try {
+                            signInAction(false, 0);
+                        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | IOException | SQLException e1) {
+                            //e1.printStackTrace();
+                            System.out.println("something went wrong!");
+                        }
                         PlayerHandler.onlinePlayers.remove(player.getPlayerID());
                         playerConn.closeConnection();
                         break;
@@ -250,4 +278,21 @@ public class PlayerHandler {
         }
         return true;
     }
+    public void updateGameStatus(Player winner,Player defeated)
+    {
+        DBMS db = new DBMS();
+        Game game;
+        if ((game = db.SelectGame(winner.getPlayerID(), defeated.getPlayerID())) == null) {
+            db.addNewGame(winner.getPlayerID(), defeated.getPlayerID(), p1_score, p2_score);
+        }
+        else {
+            if(winner.getPlayerID() == game.getP1_ID() && player1.getPlayerID() == game.getP1_ID()) {
+                db.updateGameResults(game.getGameID(), game.getP1_score() + 1, game.getP2_score() - 5);
+            }else{
+                db.updateGameResults(game.getGameID(), game.getP1_score() - 5, game.getP2_score() + 1);
+            }
+            db.updateMainScores(winner.getPlayerID(), winner.getMain_score() + 1);
+            db.updateMainScores(defeated.getPlayerID(), defeated.getMain_score() - 5);
+        }
     }
+}

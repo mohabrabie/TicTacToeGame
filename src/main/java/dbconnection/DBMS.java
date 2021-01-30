@@ -28,6 +28,7 @@ public class DBMS {
 
     ResultSet rs,rsgame;
     PreparedStatement ps,psgame;
+    public static int seq = 0;
      //this method to connect to DB only
     public Connection Connect() throws ClassNotFoundException, InstantiationException, IllegalAccessException
     {
@@ -122,7 +123,7 @@ public class DBMS {
     {
         try {
             Connection conn = this.Connect();
-            PreparedStatement pins = conn.prepareStatement("INSERT INTO games(play1ID,player2ID,playr1Score,player2Score) VALUES(?,?,?,?) ");
+            PreparedStatement pins = conn.prepareStatement("INSERT INTO game(p1_ID,p2_ID,p1_score,p2_score) VALUES(?,?,?,?) ");
             pins.setInt(1,p1_id);
             pins.setInt(2,p2_id);
             pins.setInt(3,p1_score);
@@ -133,6 +134,7 @@ public class DBMS {
             {
                 conn.close();
                 pins.close();
+                System.out.println("game added");
                 return true;
             }else{
                 conn.close();
@@ -147,11 +149,11 @@ public class DBMS {
     {
         try {
             Connection conn = this.Connect();
-            PreparedStatement pins = conn.prepareStatement("UPDATE games SET playr1Score = ? ,player2Score = ? WHERE gameID = ?");
-            pins.setInt(1,gID);
-            pins.setInt(2,p1_score);
-            pins.setInt(3,p2_score);
-  
+            PreparedStatement pins = conn.prepareStatement("UPDATE game SET p1_score = ? ,p2_score = ? WHERE gameID = ?");
+            pins.setInt(1,p1_score);
+            pins.setInt(2,p2_score);
+            pins.setInt(3,gID);
+
             int status = pins.executeUpdate();
             if(status != 0)
             {
@@ -162,7 +164,6 @@ public class DBMS {
                 conn.close();
                 pins.close();
             }
-
             } catch (SQLException | IllegalAccessException | InstantiationException | ClassNotFoundException e) {
                 e.printStackTrace();
             }
@@ -175,36 +176,72 @@ public class DBMS {
             Connection conn = this.Connect();
             PreparedStatement pins;
             pins = conn.prepareStatement("Select * From game where p1_ID=? and p2_ID=?");
-            pins.setString(1, String.valueOf(player1Id));
-            pins.setString(2, String.valueOf(player2Id));
+            pins.setInt(1, player1Id);
+            pins.setInt(2, player2Id);
 
             ResultSet rs1 = pins.executeQuery();
             // loop through the result set
-            if(rs.next())
+            if(rs1.next())
             {
-                Game game= new Game(rs.getInt("gameID"),rs.getInt("p1_ID")
-                        , rs.getInt("p2_ID"),rs.getInt("p1_score")
-                        ,rs.getInt("p2_score"));
+                Game game= new Game(rs1.getInt("gameID"),rs1.getInt("p1_ID")
+                        , rs1.getInt("p2_ID"),rs1.getInt("p1_score")
+                        ,rs1.getInt("p2_score"));
+                conn.close();
+                pins.close();
+                System.out.println("in order");
                 return game;
             }
             pins = conn.prepareStatement("Select * From game where p1_ID=? and p2_ID=?");
-            pins.setString(1, String.valueOf(player2Id));
-            pins.setString(2, String.valueOf(player1Id));
-            if(rs.next())
+            pins.setInt(1, player2Id);
+            pins.setInt(2, player1Id);
+            rs1 = pins.executeQuery();
+
+            if(rs1.next())
             {
-                Game game= new Game(rs.getInt("gameID"),rs.getInt("p1_ID")
-                        , rs.getInt("p2_ID"),rs.getInt("p1_score")
-                        ,rs.getInt("p2_score"));
+                Game game= new Game(rs1.getInt("gameID"),rs1.getInt("p1_ID")
+                        , rs1.getInt("p2_ID"),rs1.getInt("p1_score")
+                        ,rs1.getInt("p2_score"));
+                conn.close();
+                pins.close();
+                System.out.println("in order");
                 return game;
             }
-            conn.close();
-            pins.close();
+            else
+            {
+                conn.close();
+                pins.close();
+            }
+
         } catch (Exception e) {
             //e.printStackTrace();
-            System.out.println("catch login DB !!");
+            System.out.println("catch DB !!");
         }
 
         return null;
+    }
+    public boolean updateMainScores(int p_ID,int p_score)
+    {
+        try {
+            Connection conn = this.Connect();
+            PreparedStatement pins = conn.prepareStatement("UPDATE player SET main_score = ? WHERE playerID = ?");
+            pins.setInt(1,p_score);
+            pins.setInt(2,p_ID);
+
+            int status = pins.executeUpdate();
+            if(status != 0)
+            {
+                conn.close();
+                pins.close();
+                System.out.println("main scores");
+                return true;
+            }else{
+                conn.close();
+                pins.close();
+            }
+        } catch (SQLException | IllegalAccessException | InstantiationException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
     public void closeConnection()
     {
