@@ -22,11 +22,10 @@ import javafx.scene.control.Alert;
 public class SignUpDB {
 
     static Connection conn;
-    private DBMS db;
+    private DBMS db = new DBMS();;
     private Player player;
 
     public boolean isExist(Player p) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
-        db = new DBMS();
         PreparedStatement pins = null;
         try {
             conn = db.Connect();
@@ -58,10 +57,11 @@ public class SignUpDB {
         return false;
     }
 
-    public boolean newPlayer(Player p) throws SQLException {
+    public boolean newPlayer(Player p) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         PreparedStatement pins = null;
         try {
+            conn = db.Connect();
             pins = conn.prepareStatement("INSERT INTO player(name,email,password,main_score,status,avatar) VALUES(?,?,?,?,?,?) ");
             pins.setString(1,p.getName());
             pins.setString(2,p.getEmail());
@@ -88,14 +88,16 @@ public class SignUpDB {
         return false;
     }
     
-    public boolean updatePlayer(Player p) throws SQLException {
+    public boolean updatePlayer(Player p) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         PreparedStatement pins = null;
         try {
-            pins = conn.prepareStatement("UPDATE player SET name = ?,password = ? WHERE email = ?");
+            conn = db.Connect();
+            pins = conn.prepareStatement("UPDATE player SET name = ?,password = ?,avatar=? WHERE email = ?");
             pins.setString(1,p.getName());
             pins.setString(2,p.getPassword());
-            pins.setString(3,p.getEmail());
+            pins.setString(3,p.getAvatar());
+            pins.setString(4,p.getEmail());
 
             int status = pins.executeUpdate();
             
