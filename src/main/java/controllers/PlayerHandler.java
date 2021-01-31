@@ -23,10 +23,12 @@ public class PlayerHandler {
     ArrayList<Player> list = null;
     static Map<Integer,ManagePlayerConnection> onlinePlayers = new HashMap<Integer,ManagePlayerConnection>();
     static Map<Integer, Game> onGame = new HashMap<Integer,Game>();//Integer / Game
+    static Map<Integer, PlayerGame> playerGame = new HashMap<Integer, PlayerGame>(); // player1,player2
     SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
     boolean gameOn = false;
     int p1_score = 0,p2_score = 0;
     private Player player1,player2 = null;
+    static private int token=0;
     private ManagePlayerConnection player1Talk,player2Talk = null;
     public PlayerHandler(ManagePlayerConnection playerConn) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException {
         this.playerConn = playerConn;
@@ -77,6 +79,9 @@ public class PlayerHandler {
                             PlayerHandler.onlinePlayers.get(thisPlayer.getPlayerID()).serialaize("yes",player);
                             player2 = thisPlayer; //this player is X
                             player1 = player; // this Player is O
+                            PlayerGame pg = new PlayerGame(player2,player1);
+                            playerGame.put(player1.getPlayerID(),pg);
+                            playerGame.put(player2.getPlayerID(),pg);
                             p1_score = p2_score =0;
                             player2Talk = PlayerHandler.onlinePlayers.get(thisPlayer.getPlayerID());
                             player1Talk = PlayerHandler.onlinePlayers.get(player.getPlayerID());
@@ -89,78 +94,94 @@ public class PlayerHandler {
                             System.out.println("sedning no to "+player.getName());
                             PlayerHandler.onlinePlayers.get(player.getPlayerID()).serialaize("no",thisPlayer);//sending player who didn't accept
                         }if (elements.keySet().toArray()[0].equals("leaveMatch")) {
-                            if(player.getPlayerID() == player1.getPlayerID())
+                            if(player.getPlayerID() == playerGame.get(player.getPlayerID()).getPlayer1().getPlayerID())
                             {
-                                System.out.println("player1 is "+player1.getName());
+                                System.out.println("player1 is "+playerGame.get(playerGame.get(player.getPlayerID()).getPlayer1().getPlayerID()).getPlayer1().getName());
                                 p2_score++;
                                 p1_score-=5;
-                                updateGameStatus(player2,player1);
-                                player2Talk.serialaize("leaveMatch",player2);
+                                updateGameStatus(playerGame.get(player.getPlayerID()).getPlayer2(),playerGame.get(player.getPlayerID()).getPlayer1());
+
+                                onlinePlayers.get(playerGame.get(player.getPlayerID()).getPlayer2().getPlayerID()).serialaize("leaveMatch",playerGame.get(player.getPlayerID()).getPlayer2());
                             }else{
-                                System.out.println("player2 is "+player2.getName());
+                                System.out.println("player2 is "+playerGame.get(player.getPlayerID()).getPlayer2().getName());
                                 p1_score++;
                                 p2_score-=5;
-                                updateGameStatus(player1,player2);
-                                player1Talk.serialaize("leaveMatch",player1);
+                                updateGameStatus(playerGame.get(player.getPlayerID()).getPlayer1(),playerGame.get(player.getPlayerID()).getPlayer2());
+                                player1Talk.serialaize("leaveMatch",playerGame.get(player.getPlayerID()).getPlayer1());
                             }
                             PlayerHandler.onGame.remove(player.getPlayerID());
                         }
                         else if(elements.keySet().toArray()[0].equals("non")){
                             playerConn.serialaize("non", player);
                         }else if(elements.keySet().toArray()[0].equals("after")){
-                            if(player.getPlayerID() == player1.getPlayerID())
+                            if(player.getPlayerID() == playerGame.get(player.getPlayerID()).getPlayer1().getPlayerID())
                             {
-                                player2Talk.serialaize("after",player2);
-                            }else if(player.getPlayerID() == player2.getPlayerID()){
-                                player1Talk.serialaize("after",player1);
+                                onlinePlayers.get(playerGame.get(player.getPlayerID()).getPlayer2().getPlayerID()).serialaize("after",playerGame.get(player.getPlayerID()).getPlayer2());
+                            }else if(player.getPlayerID() == playerGame.get(player.getPlayerID()).getPlayer2().getPlayerID()){
+                                onlinePlayers.get(playerGame.get(player.getPlayerID()).getPlayer1().getPlayerID()).serialaize("after",playerGame.get(player.getPlayerID()).getPlayer1());
                             }
                         }else if(elements.keySet().toArray()[0].equals("win")){
-                            if(player.getPlayerID() == player1.getPlayerID())
+                            if(player.getPlayerID() == playerGame.get(player.getPlayerID()).getPlayer1().getPlayerID())
                             {
                                 p1_score++;
                                 p2_score-=5;
-                                updateGameStatus(player1,player2);
-                                player1Talk.serialaize("win",player1);
-                                player2Talk.serialaize("lose",player2);
-                            }else if(player.getPlayerID() == player2.getPlayerID()){
+                                updateGameStatus(playerGame.get(player.getPlayerID()).getPlayer1(),playerGame.get(player.getPlayerID()).getPlayer2());
+                                onlinePlayers.get(playerGame.get(player.getPlayerID()).getPlayer1().getPlayerID()).serialaize("win",playerGame.get(player.getPlayerID()).getPlayer1());
+                                onlinePlayers.get(playerGame.get(player.getPlayerID()).getPlayer2().getPlayerID()).serialaize("lose",playerGame.get(player.getPlayerID()).getPlayer2());
+                            }else if(player.getPlayerID() == playerGame.get(player.getPlayerID()).getPlayer2().getPlayerID()){
                                 p2_score++;
                                 p1_score-=5;
-                                updateGameStatus(player2,player1);
-                                player1Talk.serialaize("lose",player1);
-                                player2Talk.serialaize("win",player2);
+                                updateGameStatus(playerGame.get(player.getPlayerID()).getPlayer2(),playerGame.get(player.getPlayerID()).getPlayer1());
+                                onlinePlayers.get(playerGame.get(player.getPlayerID()).getPlayer1().getPlayerID()).serialaize("lose",playerGame.get(player.getPlayerID()).getPlayer1());
+                                onlinePlayers.get(playerGame.get(player.getPlayerID()).getPlayer2().getPlayerID()).serialaize("win",playerGame.get(player.getPlayerID()).getPlayer2());
                             }
                         }else if(elements.keySet().toArray()[0].equals("draw")){
-                            player1Talk.serialaize("draw",player1);
-                            player2Talk.serialaize("draw",player2);
-                        }else if(elements.keySet().toArray()[0].equals("rematch")){
-                            player2Talk.serialaize("even",player2);
+                            onlinePlayers.get(playerGame.get(player.getPlayerID()).getPlayer1().getPlayerID()).serialaize("draw",playerGame.get(player.getPlayerID()).getPlayer1());
+                            onlinePlayers.get(playerGame.get(player.getPlayerID()).getPlayer2().getPlayerID()).serialaize("draw",playerGame.get(player.getPlayerID()).getPlayer2());
                         }else if(elements.keySet().toArray()[0].equals("chat")){
                             String msg;
-                            if(player.getPlayerID() == player1.getPlayerID())
+                            if(player.getPlayerID() == playerGame.get(player.getPlayerID()).getPlayer1().getPlayerID())
                             {
-                                elements = player1Talk.deserialize();
+                                elements = onlinePlayers.get(playerGame.get(player.getPlayerID()).getPlayer1().getPlayerID()).deserialize();
                                 msg = (String) elements.keySet().toArray()[0];
                                 msg = player.getName()+" : " + msg + "\n";
 
                             }else{
-                                elements = player2Talk.deserialize();
+                                elements = onlinePlayers.get(playerGame.get(player.getPlayerID()).getPlayer2().getPlayerID()).deserialize();
                                 msg = (String) elements.keySet().toArray()[0];
                                 msg = player.getName()+" : " + msg + "\n";
                             }
-                            player1Talk.serialaize("chat",player1);
-                            player1Talk.serialaize(msg,player1);
-                            player2Talk.serialaize("chat",player2);
-                            player2Talk.serialaize(msg,player2);
+                            onlinePlayers.get(playerGame.get(player.getPlayerID()).getPlayer1().getPlayerID()).serialaize("chat",playerGame.get(player.getPlayerID()).getPlayer1());
+                            onlinePlayers.get(playerGame.get(player.getPlayerID()).getPlayer1().getPlayerID()).serialaize(msg,playerGame.get(player.getPlayerID()).getPlayer1());
+                            onlinePlayers.get(playerGame.get(player.getPlayerID()).getPlayer2().getPlayerID()).serialaize("chat",playerGame.get(player.getPlayerID()).getPlayer2());
+                            onlinePlayers.get(playerGame.get(player.getPlayerID()).getPlayer2().getPlayerID()).serialaize(msg,playerGame.get(player.getPlayerID()).getPlayer2());
                         }
                         else if(isDigit((String)elements.keySet().toArray()[0]))
                         {
                             String move = (String)elements.keySet().toArray()[0];
-                            System.out.println("sending "+move+" to "+player2.getName());
-                            player2Talk.serialaize(move,player);
-                            System.out.println("sending "+move+" to "+player1.getName());
-                            player1Talk.serialaize(move,player);
-                        }
-                    } catch (IOException | ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {
+                            System.out.println("sending "+move+" to "+playerGame.get(player.getPlayerID()).getPlayer2().getName());
+                            onlinePlayers.get(playerGame.get(player.getPlayerID()).getPlayer2().getPlayerID()).serialaize(move,player);
+                            System.out.println("sending "+move+" to "+playerGame.get(player.getPlayerID()).getPlayer1().getName());
+                            onlinePlayers.get(playerGame.get(player.getPlayerID()).getPlayer1().getPlayerID()).serialaize(move,player);
+                        }else if(elements.keySet().toArray()[0].equals("rematch")){
+                            token++;
+                            System.out.println("Token :::::::::::::: "+token);
+                            if(token == 2) {
+                                System.out.println("Token :::::::::::::: inside if"+token);
+                                onlinePlayers.get(playerGame.get(player.getPlayerID()).getPlayer1().getPlayerID()).serialaize("rematch", playerGame.get(player.getPlayerID()).getPlayer2());
+                                onlinePlayers.get(playerGame.get(player.getPlayerID()).getPlayer2().getPlayerID()).serialaize("rematch", playerGame.get(player.getPlayerID()).getPlayer1());
+                                onlinePlayers.get(playerGame.get(player.getPlayerID()).getPlayer1().getPlayerID()).serialaize("first", playerGame.get(player.getPlayerID()).getPlayer2());
+                                onlinePlayers.get(playerGame.get(player.getPlayerID()).getPlayer2().getPlayerID()).serialaize("second", playerGame.get(player.getPlayerID()).getPlayer1());
+                            }
+                            if(token == 2)
+                            {
+                                token = 0;
+                            }
+                        }else if(elements.keySet().toArray()[0].equals("norematch")){
+                            onlinePlayers.get(playerGame.get(player.getPlayerID()).getPlayer1().getPlayerID()).serialaize("norematch", player);
+                            onlinePlayers.get(playerGame.get(player.getPlayerID()).getPlayer2().getPlayerID()).serialaize("norematch", player);
+
+                        } } catch (IOException | ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {
                         //e.printStackTrace();
                         try {
                             signInAction(false, 0);
@@ -309,7 +330,7 @@ public class PlayerHandler {
             db.addNewGame(winner.getPlayerID(), defeated.getPlayerID(), p1_score, p2_score);
         }
         else {
-            if(winner.getPlayerID() == game.getP1_ID() && player1.getPlayerID() == game.getP1_ID()) {
+            if(winner.getPlayerID() == game.getP1_ID() && playerGame.get(player.getPlayerID()).getPlayer1().getPlayerID() == game.getP1_ID()) {
                 db.updateGameResults(game.getGameID(), game.getP1_score() + 1, game.getP2_score() - 5);
             }else{
                 db.updateGameResults(game.getGameID(), game.getP1_score() - 5, game.getP2_score() + 1);
