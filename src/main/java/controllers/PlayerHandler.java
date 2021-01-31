@@ -23,19 +23,23 @@ public class PlayerHandler {
     ArrayList<Player> list = null;
     static Map<Integer,ManagePlayerConnection> onlinePlayers = new HashMap<Integer,ManagePlayerConnection>();
     static Map<Integer, Game> onGame = new HashMap<Integer,Game>();//Integer / Game
-    static private Player player1,player2;
-    static private ManagePlayerConnection player1Talk,player2Talk;
     SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
     boolean gameOn = false;
     int p1_score = 0,p2_score = 0;
-
+    private Player player1,player2 = null;
+    private ManagePlayerConnection player1Talk,player2Talk = null;
     public PlayerHandler(ManagePlayerConnection playerConn) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException {
         this.playerConn = playerConn;
         new Thread(new Runnable() {
 
             @Override
             public void run() {
-
+                player1 = null;
+                player2 = null;
+                player1Talk = null;
+                player2Talk = null;
+                System.out.println(":::::::::::::::::::::::NEW Thread ::::::::::::::::::::::::::::::::::");
+                System.out.println(onlinePlayers);
                 while (!gameOn) {
                     try {
                         //Read MSG
@@ -126,15 +130,34 @@ public class PlayerHandler {
                                 player2Talk.serialaize("win",player2);
                             }
                         }else if(elements.keySet().toArray()[0].equals("draw")){
-                            player1Talk.serialaize("even",player1);
-                            player2Talk.serialaize("even",player2);
+                            player1Talk.serialaize("draw",player1);
+                            player2Talk.serialaize("draw",player2);
                         }else if(elements.keySet().toArray()[0].equals("rematch")){
                             player2Talk.serialaize("even",player2);
+                        }else if(elements.keySet().toArray()[0].equals("chat")){
+                            String msg;
+                            if(player.getPlayerID() == player1.getPlayerID())
+                            {
+                                elements = player1Talk.deserialize();
+                                msg = (String) elements.keySet().toArray()[0];
+                                msg = player.getName()+" : " + msg + "\n";
+
+                            }else{
+                                elements = player2Talk.deserialize();
+                                msg = (String) elements.keySet().toArray()[0];
+                                msg = player.getName()+" : " + msg + "\n";
+                            }
+                            player1Talk.serialaize("chat",player1);
+                            player1Talk.serialaize(msg,player1);
+                            player2Talk.serialaize("chat",player2);
+                            player2Talk.serialaize(msg,player2);
                         }
                         else if(isDigit((String)elements.keySet().toArray()[0]))
                         {
                             String move = (String)elements.keySet().toArray()[0];
+                            System.out.println("sending "+move+" to "+player2.getName());
                             player2Talk.serialaize(move,player);
+                            System.out.println("sending "+move+" to "+player1.getName());
                             player1Talk.serialaize(move,player);
                         }
                     } catch (IOException | ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {
