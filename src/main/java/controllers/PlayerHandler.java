@@ -29,6 +29,7 @@ public class PlayerHandler {
     int p1_score = 0,p2_score = 0;
     private Player player1,player2 = null;
     static private int token=0;
+    private static int count=0;
     private ManagePlayerConnection player1Talk,player2Talk = null;
     public PlayerHandler(ManagePlayerConnection playerConn) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException {
         this.playerConn = playerConn;
@@ -99,20 +100,22 @@ public class PlayerHandler {
                             {
                                 System.out.println("player1 is "+playerGame.get(playerGame.get(player.getPlayerID()).getPlayer1().getPlayerID()).getPlayer1().getName());
                                 updateGameStatus(playerGame.get(player.getPlayerID()).getPlayer2(),playerGame.get(player.getPlayerID()).getPlayer1());
-
                                 onlinePlayers.get(playerGame.get(player.getPlayerID()).getPlayer2().getPlayerID()).serialaize("leaveMatch",playerGame.get(player.getPlayerID()).getPlayer2());
                             }else{
                                 System.out.println("player2 is "+playerGame.get(player.getPlayerID()).getPlayer2().getName());
                                 updateGameStatus(playerGame.get(player.getPlayerID()).getPlayer1(),playerGame.get(player.getPlayerID()).getPlayer2());
                                 player1Talk.serialaize("leaveMatch",playerGame.get(player.getPlayerID()).getPlayer1());
                             }
-                            PlayerHandler.onGame.remove(player.getPlayerID());
-                            System.out.println("player game size map before removing player1 :"+playerGame.size());
-                            playerGame.remove(playerGame.get(player.getPlayerID()).getPlayer1().getPlayerID());
-                            System.out.println("player game map size after removing player1 :"+playerGame.size());
-                            playerGame.remove(playerGame.get(player.getPlayerID()).getPlayer2().getPlayerID());
-                            System.out.println("player game  :"+playerGame.get(player.getPlayerID()));
 
+                            int x,y;
+                            x = playerGame.get(player.getPlayerID()).getPlayer1().getPlayerID();
+                            y = playerGame.get(player.getPlayerID()).getPlayer2().getPlayerID();
+                            PlayerHandler.onlinePlayers.remove(player.getPlayerID());
+                            System.out.println("player game size map before removing player1 :" + playerGame.size());
+                            playerGame.remove(x);
+                            System.out.println("player game map size after removing player1 :" + playerGame.size());
+                            playerGame.remove(y);
+                            System.out.println("player game size map after removing the 2 players :" + playerGame.size());
                         }
                         else if(elements.keySet().toArray()[0].equals("non")){
                             playerConn.serialaize("non", player);
@@ -187,18 +190,25 @@ public class PlayerHandler {
                                 token = 0;
                             }
                         }else if(elements.keySet().toArray()[0].equals("norematch")){
-                            onlinePlayers.get(playerGame.get(player.getPlayerID()).getPlayer1().getPlayerID()).serialaize("norematch", player);
-                            onlinePlayers.get(playerGame.get(player.getPlayerID()).getPlayer2().getPlayerID()).serialaize("norematch", player);
+                            count++;
+                            System.out.println("count = "+count);
                             int x,y;
-                            x = playerGame.get(player.getPlayerID()).getPlayer1().getPlayerID();
-                            y = playerGame.get(player.getPlayerID()).getPlayer2().getPlayerID();
-                            PlayerHandler.onlinePlayers.remove(player.getPlayerID());
-                            System.out.println("player game size map before removing player1 :"+playerGame.size());
-                            playerGame.remove(x);
-                            System.out.println("player game map size after removing player1 :"+playerGame.size());
-                            playerGame.remove(y);
-                            System.out.println("player game size map before removing player2 :"+playerGame.size());
-                        } } catch (IOException | ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {
+                            if(count == 2) {
+                                x = playerGame.get(player.getPlayerID()).getPlayer1().getPlayerID();
+                                y = playerGame.get(player.getPlayerID()).getPlayer2().getPlayerID();
+
+                                onlinePlayers.get(x).serialaize("norematch", player);
+                                onlinePlayers.get(y).serialaize("norematch", player);
+                                PlayerHandler.onlinePlayers.remove(player.getPlayerID());
+                                System.out.println("player game size map before removing player1 :" + playerGame.size());
+                                playerGame.remove(x);
+                                System.out.println("player 2 game map :" + y);
+                                playerGame.remove(y);
+                                System.out.println("player game size map before removing player2 :" + playerGame.size());
+                                count = 0;
+                            }
+                            }
+                    } catch (IOException | ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {
                         //e.printStackTrace();
                         try {
                             signInAction(false, 0);
@@ -207,14 +217,10 @@ public class PlayerHandler {
                             System.out.println("something went wrong!");
                         }
                         PlayerHandler.onlinePlayers.remove(player.getPlayerID());
-                        if(playerGame.size() != 0) {
-                            System.out.println("player game size map before removing player1 :" + playerGame.size());
-                            playerGame.remove(playerGame.get(player.getPlayerID()).getPlayer1().getPlayerID());
-                            System.out.println("player game map size after removing player1 :" + playerGame.size());
-                            playerGame.remove(playerGame.get(player.getPlayerID()).getPlayer2().getPlayerID());
-                            System.out.println("player game size map before removing player2 :" + playerGame.size());
-                        }playerConn.closeConnection();
+                        playerConn.closeConnection();
+
                         break;
+
                     }
                 }
             }
@@ -358,6 +364,16 @@ public class PlayerHandler {
     public void updateGameStatus(Player winner,Player defeated)
     {
         DBMS db = new DBMS();
+        Game game;
+        if((game = db.SelectGame(winner.getPlayerID(),defeated.getPlayerID())) != null)
+        {
+            if(game.getP1_ID() == game.getP1_ID() && game.getP1_ID() == winner.getPlayerID()) {
+                db.updateGameResults(game.getGameID(), game.getP1_score()+5,game.getP2_score());
+            }
+            else{
+                db.updateGameResults(game.getGameID(), game.getP1_score(),game.getP2_score()+5);
+            }
+        }
         db.updateMainScores(winner.getPlayerID(), winner.getMain_score() + 5);
         //db.updateMainScores(defeated.getPlayerID(), defeated.getMain_score() - 5);
     }
