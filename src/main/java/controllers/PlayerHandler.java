@@ -69,7 +69,6 @@ public class PlayerHandler {
                             updateProfileAction();
                         } else if (elements.keySet().toArray()[0].equals("play")) {
                             SendPlay();
-                            p1_score = p2_score =0;
                             //GetAnswer from Player
                         }else if(elements.keySet().toArray()[0].equals("yes")){
                             //gameOn = true;
@@ -82,6 +81,8 @@ public class PlayerHandler {
                             PlayerGame pg = new PlayerGame(player2,player1);
                             playerGame.put(player1.getPlayerID(),pg);
                             playerGame.put(player2.getPlayerID(),pg);
+                            System.out.println("player1 id = "+player1.getPlayerID());
+                            System.out.println("player2 id = "+player2.getPlayerID());
                             p1_score = p2_score =0;
                             player2Talk = PlayerHandler.onlinePlayers.get(thisPlayer.getPlayerID());
                             player1Talk = PlayerHandler.onlinePlayers.get(player.getPlayerID());
@@ -97,19 +98,21 @@ public class PlayerHandler {
                             if(player.getPlayerID() == playerGame.get(player.getPlayerID()).getPlayer1().getPlayerID())
                             {
                                 System.out.println("player1 is "+playerGame.get(playerGame.get(player.getPlayerID()).getPlayer1().getPlayerID()).getPlayer1().getName());
-                                p2_score++;
-                                p1_score-=5;
                                 updateGameStatus(playerGame.get(player.getPlayerID()).getPlayer2(),playerGame.get(player.getPlayerID()).getPlayer1());
 
                                 onlinePlayers.get(playerGame.get(player.getPlayerID()).getPlayer2().getPlayerID()).serialaize("leaveMatch",playerGame.get(player.getPlayerID()).getPlayer2());
                             }else{
                                 System.out.println("player2 is "+playerGame.get(player.getPlayerID()).getPlayer2().getName());
-                                p1_score++;
-                                p2_score-=5;
                                 updateGameStatus(playerGame.get(player.getPlayerID()).getPlayer1(),playerGame.get(player.getPlayerID()).getPlayer2());
                                 player1Talk.serialaize("leaveMatch",playerGame.get(player.getPlayerID()).getPlayer1());
                             }
                             PlayerHandler.onGame.remove(player.getPlayerID());
+                            System.out.println("player game size map before removing player1 :"+playerGame.size());
+                            playerGame.remove(playerGame.get(player.getPlayerID()).getPlayer1().getPlayerID());
+                            System.out.println("player game map size after removing player1 :"+playerGame.size());
+                            playerGame.remove(playerGame.get(player.getPlayerID()).getPlayer2().getPlayerID());
+                            System.out.println("player game  :"+playerGame.get(player.getPlayerID()));
+
                         }
                         else if(elements.keySet().toArray()[0].equals("non")){
                             playerConn.serialaize("non", player);
@@ -138,6 +141,7 @@ public class PlayerHandler {
                         }else if(elements.keySet().toArray()[0].equals("draw")){
                             onlinePlayers.get(playerGame.get(player.getPlayerID()).getPlayer1().getPlayerID()).serialaize("draw",playerGame.get(player.getPlayerID()).getPlayer1());
                             onlinePlayers.get(playerGame.get(player.getPlayerID()).getPlayer2().getPlayerID()).serialaize("draw",playerGame.get(player.getPlayerID()).getPlayer2());
+
                         }else if(elements.keySet().toArray()[0].equals("chat")){
                             String msg;
                             if(player.getPlayerID() == playerGame.get(player.getPlayerID()).getPlayer1().getPlayerID())
@@ -181,6 +185,12 @@ public class PlayerHandler {
                             onlinePlayers.get(playerGame.get(player.getPlayerID()).getPlayer1().getPlayerID()).serialaize("norematch", player);
                             onlinePlayers.get(playerGame.get(player.getPlayerID()).getPlayer2().getPlayerID()).serialaize("norematch", player);
 
+                            PlayerHandler.onlinePlayers.remove(player.getPlayerID());
+                            System.out.println("player game size map before removing player1 :"+playerGame.size());
+                            playerGame.remove(playerGame.get(player.getPlayerID()).getPlayer1().getPlayerID());
+                            System.out.println("player game map size after removing player1 :"+playerGame.size());
+                            playerGame.remove(playerGame.get(player.getPlayerID()).getPlayer2().getPlayerID());
+                            System.out.println("player game size map before removing player2 :"+playerGame.size());
                         } } catch (IOException | ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {
                         //e.printStackTrace();
                         try {
@@ -190,7 +200,13 @@ public class PlayerHandler {
                             System.out.println("something went wrong!");
                         }
                         PlayerHandler.onlinePlayers.remove(player.getPlayerID());
-                        playerConn.closeConnection();
+                        if(playerGame.size() != 0) {
+                            System.out.println("player game size map before removing player1 :" + playerGame.size());
+                            playerGame.remove(playerGame.get(player.getPlayerID()).getPlayer1().getPlayerID());
+                            System.out.println("player game map size after removing player1 :" + playerGame.size());
+                            playerGame.remove(playerGame.get(player.getPlayerID()).getPlayer2().getPlayerID());
+                            System.out.println("player game size map before removing player2 :" + playerGame.size());
+                        }playerConn.closeConnection();
                         break;
                     }
                 }
@@ -325,18 +341,7 @@ public class PlayerHandler {
     public void updateGameStatus(Player winner,Player defeated)
     {
         DBMS db = new DBMS();
-        Game game;
-        if ((game = db.SelectGame(winner.getPlayerID(), defeated.getPlayerID())) == null) {
-            db.addNewGame(winner.getPlayerID(), defeated.getPlayerID(), p1_score, p2_score);
-        }
-        else {
-            if(winner.getPlayerID() == game.getP1_ID() && playerGame.get(player.getPlayerID()).getPlayer1().getPlayerID() == game.getP1_ID()) {
-                db.updateGameResults(game.getGameID(), game.getP1_score() + 1, game.getP2_score() - 5);
-            }else{
-                db.updateGameResults(game.getGameID(), game.getP1_score() - 5, game.getP2_score() + 1);
-            }
-            db.updateMainScores(winner.getPlayerID(), winner.getMain_score() + 1);
-            db.updateMainScores(defeated.getPlayerID(), defeated.getMain_score() - 5);
-        }
+        db.updateMainScores(winner.getPlayerID(), winner.getMain_score() + 5);
+        //db.updateMainScores(defeated.getPlayerID(), defeated.getMain_score() - 5);
     }
 }
