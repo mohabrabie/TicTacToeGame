@@ -137,8 +137,8 @@ public class ServerHomeController implements Initializable {
         ServerOn = false;
         Platform.runLater(() -> {
             taLog.appendText(" Server stopped ");
-            Platform.exit();
-            System.exit(0);
+            //Platform.exit();
+            //System.exit(0);
         });
         start.setDisable(ServerOn);
         main.stop();
