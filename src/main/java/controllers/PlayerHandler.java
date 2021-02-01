@@ -159,8 +159,13 @@ public class PlayerHandler {
                             onlinePlayers.get(playerGame.get(player.getPlayerID()).getPlayer1().getPlayerID()).serialaize(msg,playerGame.get(player.getPlayerID()).getPlayer1());
                             onlinePlayers.get(playerGame.get(player.getPlayerID()).getPlayer2().getPlayerID()).serialaize("chat",playerGame.get(player.getPlayerID()).getPlayer2());
                             onlinePlayers.get(playerGame.get(player.getPlayerID()).getPlayer2().getPlayerID()).serialaize(msg,playerGame.get(player.getPlayerID()).getPlayer2());
-                        }
-                        else if(isDigit((String)elements.keySet().toArray()[0]))
+                        }else if(elements.keySet().toArray()[0].equals("globalChat")){
+                            String msg;
+                            elements = onlinePlayers.get(player.getPlayerID()).deserialize();
+                            msg = (String) elements.keySet().toArray()[0];
+                            msg = player.getName()+" : " + msg + "\n";
+                            SendMsgToAll(msg);
+                        }else if(isDigit((String)elements.keySet().toArray()[0]))
                         {
                             String move = (String)elements.keySet().toArray()[0];
                             System.out.println("sending "+move+" to "+playerGame.get(player.getPlayerID()).getPlayer2().getName());
@@ -184,12 +189,14 @@ public class PlayerHandler {
                         }else if(elements.keySet().toArray()[0].equals("norematch")){
                             onlinePlayers.get(playerGame.get(player.getPlayerID()).getPlayer1().getPlayerID()).serialaize("norematch", player);
                             onlinePlayers.get(playerGame.get(player.getPlayerID()).getPlayer2().getPlayerID()).serialaize("norematch", player);
-
+                            int x,y;
+                            x = playerGame.get(player.getPlayerID()).getPlayer1().getPlayerID();
+                            y = playerGame.get(player.getPlayerID()).getPlayer2().getPlayerID();
                             PlayerHandler.onlinePlayers.remove(player.getPlayerID());
                             System.out.println("player game size map before removing player1 :"+playerGame.size());
-                            playerGame.remove(playerGame.get(player.getPlayerID()).getPlayer1().getPlayerID());
+                            playerGame.remove(x);
                             System.out.println("player game map size after removing player1 :"+playerGame.size());
-                            playerGame.remove(playerGame.get(player.getPlayerID()).getPlayer2().getPlayerID());
+                            playerGame.remove(y);
                             System.out.println("player game size map before removing player2 :"+playerGame.size());
                         } } catch (IOException | ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {
                         //e.printStackTrace();
@@ -213,6 +220,14 @@ public class PlayerHandler {
             }
         }).start();
     }
+    public void SendMsgToAll(String msg)
+    {
+        for(Integer x : onlinePlayers.keySet())
+        {
+            onlinePlayers.get(x).serialaize("globalChat",player);
+            onlinePlayers.get(x).serialaize(msg,player);
+        }
+    }
     public boolean isDigit(String str){
         Pattern pattern = Pattern.compile("\\d");
         return pattern.matcher(str).matches();
@@ -222,7 +237,7 @@ public class PlayerHandler {
         System.out.println(":::::: Enterd Play Mode :::::");
         System.out.println(PlayerHandler.onlinePlayers);
         Player myFriend = player;
-        if(FindMyFriendOnline(myFriend) && FindMyFriendOnGame(myFriend))
+        if(FindMyFriendOnline(myFriend) && !FindMyFriendOnGame(myFriend))
         {
             System.out.println("Match between " + thisPlayer.getName() +" and " + myFriend.getName());
             System.out.println(PlayerHandler.onlinePlayers.get(myFriend.getPlayerID()));
@@ -267,13 +282,22 @@ public class PlayerHandler {
                 System.out.println("Error updating the status");
             player = db.getPlayerData();
             playerConn.serialaize("true", player);
+            NotifyAll(player);
             PlayerHandler.onlinePlayers.put(player.getPlayerID(),playerConn);
+
 
         } else {
             playerConn.serialaize("false", player);
         }
     }
-
+    public void NotifyAll(Player p)
+    {
+        for(Integer x : onlinePlayers.keySet())
+        {
+            System.out.println("sending notify to ID "+x);
+            onlinePlayers.get(x).serialaize("notify",p);
+        }
+    }
     public ArrayList<Player> GetAllPlayers(Player p) throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
         DBMS db1 = new DBMS();
         ArrayList<Player> list = null;
@@ -320,23 +344,16 @@ public class PlayerHandler {
         }
     public boolean FindMyFriendOnGame(Player player){
         System.out.println("Play with :::: "+player);
-        for(int id :  onGame.keySet())
+        for(int id :  playerGame.keySet())
         {
             if((id == player.getPlayerID()))
             {
                 System.out.println("he is in a Game");
-                return false;
+                return true;
             }
+
         }
-        for(int id :  onGame.keySet())
-        {
-            if((id == player.getPlayerID()))
-            {
-                System.out.println("he is in a Game");
-                return false;
-            }
-        }
-        return true;
+        return false;
     }
     public void updateGameStatus(Player winner,Player defeated)
     {
