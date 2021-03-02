@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="585.0" prefWidth="875.0" style="-fx-background-color: #262626;" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.PlayingModeController">
+   <children>
+      <ImageView fitHeight="585.0" fitWidth="875.0" pickOnBounds="true">
+         <image>
+            <Image url="@../icons/blackone.jpg" />
+         </image>
+      </ImageView>
+      <AnchorPane layoutX="100.0" layoutY="101.0" prefHeight="363.0" prefWidth="650.0" style="-fx-background-color: #757171;">
+         <children>
+            <ImageView fitHeight="416.0" fitWidth="650.0" layoutY="-2.0" pickOnBounds="true">
+               <image>
+                  <Image url="@../icons/grayone.jpg" />
+               </image>
+            </ImageView>
+            <Button fx:id="singlemodebtn" layoutX="21.0" layoutY="215.0" mnemonicParsing="false" onAction="#singleModeButtonPushed" prefHeight="71.0" prefWidth="269.0" style="-fx-background-color: #262626;" text="SINGLE PLAYER" textFill="#fcfc04">
+               <font>
+                  <Font size="33.0" />
+               </font>
+            </Button>
+            <Button fx:id="login" layoutX="347.0" layoutY="215.0" mnemonicParsing="false" onAction="#multiModeButtonPushed" prefHeight="71.0" prefWidth="269.0" style="-fx-background-color: #262626;" text="MULTI PLAYER" textFill="#fcfc04">
+               <font>
+                  <Font size="33.0" />
+               </font>
+            </Button>
+            <Label layoutX="130.0" layoutY="71.0" text="How You Enjoy Playing?" textFill="#262626">
+               <font>
+                  <Font size="34.0" />
+               </font>
+               <effect>
+                  <Glow />
+               </effect>
+            </Label>
+         </children>
+      </AnchorPane>
+      <Button fx:id="logoutbtn" layoutX="768.0" layoutY="14.0" mnemonicParsing="false" onAction="#logoutButtonPushed" prefHeight="50.0" prefWidth="85.0" style="-fx-background-color: #262626;" text="Logout" textFill="#fcfc04">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+	  <Button fx:id="profilebtn" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#profileButtonPushed" prefHeight="50.0" prefWidth="85.0" style="-fx-background-color: #262626;" text="Profile" textFill="#fcfc04">
+               <font>
+                  <Font size="18.0" />
+               </font>
+        </Button>
+   </children>
+</AnchorPane>
